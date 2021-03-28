@@ -1,4 +1,5 @@
 Refine EditUser component, and (possibly) reuse Signup for it.
+Put relationships in models.py
 
 Components to create for admin:
 approve user, create date, delete date.

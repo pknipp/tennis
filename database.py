@@ -28,13 +28,12 @@ with app.app_context():
         ))
     db.session.commit()
 
-dates = [("Saturday", date(2021, 4, 3)), ("Sunday", date(2021, 4, 4))]
+dates = [date(2021, 4, 3), date(2021, 4, 4)]
 
 with app.app_context():
     for date in dates:
         db.session.add(Date(
-            day=date[0],
-            date=date[1],
+            date=date,
             created_at=datetime.now(),
             updated_at=datetime.now(),
         ))

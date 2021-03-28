@@ -5,10 +5,11 @@ import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
 import LogOut from './components/LogOut';
 import EditUser from './components/EditUser';
+import Dates from './components/Dates';
 import ProtectedRoute from "./components/ProtectedRoute"
 import AuthRoute from "./components/AuthRoute"
 import AuthContext from './auth';
-import Success from './components/Success';
+// import Success from './components/Success';
 
 
 const App = _ => {
@@ -42,7 +43,7 @@ const App = _ => {
                         <AuthRoute exact path="/signup" component={SignUp} />
                         <ProtectedRoute exact path="/logout" component={LogOut} currentUser={currentUser} />
                         <ProtectedRoute exact path="/edituser" component={EditUser} currentUser={currentUser} />
-                        <ProtectedRoute exact path="/" component={Success} />
+                        <ProtectedRoute exact path="/" component={Dates} />
                     </Switch>
                 </BrowserRouter>
             }

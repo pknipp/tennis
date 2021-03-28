@@ -55,7 +55,6 @@ class Date(db.Model, UserMixin):
     __tablename__ = 'dates'
 
     id = db.Column(db.Integer, primary_key=True)
-    day = db.Column(db.String(31), nullable=False)
     date = db.Column(db.Date, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
@@ -63,8 +62,28 @@ class Date(db.Model, UserMixin):
     def to_dict(self):
         return {
             "id": self.id,
-            "day": self.day,
             "date": self.date,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
+        }
+
+
+class Reservation(db.Model, UserMixin):
+    __tablename__ = 'reservations'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    date_id = db.Column(db.Integer,db.ForeignKey("dates.id"), nullable=False)
+    wants_to_play = db.Column(db.Boolean, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False)
+    updated_at = db.Column(db.DateTime, nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "date_id": self.date_id,
+            "wants_to_play": self.wants_to_play,
             "created_at": self.created_at,
             "updated_at": self.updated_at
         }

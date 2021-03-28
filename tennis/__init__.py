@@ -5,9 +5,10 @@ from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager, \
     current_user, login_user, logout_user, login_required
 from flask_migrate import Migrate
-from tennis.models import db, User
+from tennis.models import db, User, Date
 from tennis.api.session import session
 from tennis.api.users import users
+from tennis.api.dates import dates
 from tennis.config import Config
 from datetime import datetime
 
@@ -18,6 +19,7 @@ migrate = Migrate(app, db)
 app.config.from_object(Config)
 app.register_blueprint(session, url_prefix='/api/session')
 app.register_blueprint(users, url_prefix='/api/users')
+app.register_blueprint(dates, url_prefix='/api/dates')
 db.init_app(app)
 
 
