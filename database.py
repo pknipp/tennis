@@ -10,7 +10,7 @@ seed(1)
 fake = Faker()
 load_dotenv()
 
-users = [("demo@aol.com", False, False), ("jdoe@aol.com", False, False), ("peteraknipp@gmail.com", True, True)]
+users = [("demo@aol.com", "Demo User", False, "(123)456-7890"), ("peteraknipp@gmail.com", "Pete K", True, "(914)462-7916")]
 
 with app.app_context():
     db.drop_all()
@@ -19,10 +19,12 @@ with app.app_context():
         created_at = fake.date_time_between(start_date=datetime(2000, 1, 15))
         db.session.add(User(
             email=user[0],
+            name=user[1],
             password="password",
-            is_admin=user[1],
-            is_public=user[2],
+            is_admin=user[2],
+            phone=user[3],
             created_at=created_at,
-            updated_at=fake.date_time_between(start_date=created_at)
+            updated_at=fake.date_time_between(start_date=created_at),
+            plays_singles=True,
         ))
     db.session.commit()

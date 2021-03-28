@@ -10,9 +10,10 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(63), nullable=False, unique=True)
-    cell = db.Column(db.String(12))
-    is_public = db.Column(db.Boolean, nullable=False)
+    name = db.Column(db.String(22), nullable=False, unique=True)
+    phone = db.Column(db.String(15), nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False)
+    plays_singles = db.Column(db.Boolean, nullable=False)
     hashed_password = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
@@ -41,8 +42,10 @@ class User(db.Model, UserMixin):
         return {
             "id": self.id,
             "email": self.email,
+            "name": self.name,
+            "phone": self.phone,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
-            "is_public": self.is_public,
             "is_admin": self.is_admin,
+            "plays_singles": self.plays_singles,
         }

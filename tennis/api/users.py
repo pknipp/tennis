@@ -16,24 +16,33 @@ def index():
         if not request.is_json:
             return jsonify({"msg": "Missing JSON in request"}), 400
         email = request.json.get('email', None)
+        name = request.json.get('name', None)
+        phone = request.json.get('phone', None)
+        plays_singles = request.json.get('playsSingles', False)
         password = request.json.get('password', None)
-        if not email or not password:
+        if not email or not password or not name or not phone:
             return {"errors": ["Missing required parameters"]}, 400
         user = User.query.filter(User.email == email).one_or_none()
         if user:
             return {"errors": ["That email has already been taken."]}, 500
+        user = User.query.filter(User.name == name).one_or_none()
+        if user:
+            return {"errors": ["That nickname has already been taken."]}, 500
         password2 = request.json.get('password2', None)
         if not password == password2:
             return {"errors": ["Passwords must match each other"]}, 400
         new_user = User(
             email=email,
+            name=name,
+            phone=phone,
+            plays_singles=plays_singles,
             password=password,
             created_at=datetime.now(),
-            updated_at=datetime.now()
+            updated_at=datetime.now(),
+            is_admin=False,
         )
         db.session.add(new_user)
         db.session.commit()
-        # return redirect('/api/users')
         authenticated, user = User.authenticate(email, password)
         if authenticated:
             login_user(user)
