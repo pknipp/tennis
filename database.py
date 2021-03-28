@@ -1,4 +1,4 @@
-from tennis.models import User
+from tennis.models import User, Date
 from tennis import app, db
 from dotenv import load_dotenv
 from datetime import date, datetime, timedelta
@@ -16,15 +16,26 @@ with app.app_context():
     db.drop_all()
     db.create_all()
     for user in users:
-        created_at = fake.date_time_between(start_date=datetime(2000, 1, 15))
         db.session.add(User(
             email=user[0],
             name=user[1],
             password="password",
             is_admin=user[2],
             phone=user[3],
-            created_at=created_at,
-            updated_at=fake.date_time_between(start_date=created_at),
+            created_at=datetime.now(),
+            updated_at=datetime.now(),
             plays_singles=True,
+        ))
+    db.session.commit()
+
+dates = [("Saturday", date(2021, 4, 3)), ("Sunday", date(2021, 4, 4))]
+
+with app.app_context():
+    for date in dates:
+        db.session.add(Date(
+            day=date[0],
+            date=date[1],
+            created_at=datetime.now(),
+            updated_at=datetime.now(),
         ))
     db.session.commit()

@@ -49,3 +49,22 @@ class User(db.Model, UserMixin):
             "is_admin": self.is_admin,
             "plays_singles": self.plays_singles,
         }
+
+
+class Date(db.Model, UserMixin):
+    __tablename__ = 'dates'
+
+    id = db.Column(db.Integer, primary_key=True)
+    day = db.Column(db.String(31), nullable=False)
+    date = db.Column(db.Date, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False)
+    updated_at = db.Column(db.DateTime, nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "day": self.day,
+            "date": self.date,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
+        }
