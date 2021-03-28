@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthContext from '../auth';
+import Date from './Date';
 
 const Dates = () => {
     const [dates, setDates] = useState([]);
@@ -17,6 +18,7 @@ const Dates = () => {
             const res = await fetch(`/api/dates`)
             if (res.ok) {
                 const data = await res.json();
+                console.log(data.dates);
                 setDates(data.dates);
             }
         } catch (err) {
@@ -28,36 +30,18 @@ const Dates = () => {
         getDates();
     }, [rerender])
 
-    const postReservation = dateId => {
-        (async _ => {
-            const response = await fetchWithCSRF(`/api/reservations/${dateId}`, {
-                method: 'POST',
-            });
-            const responseData = await response.json();
-            if (!response.ok) setErrors(responseData.errors);
-            if (responseData.messages) setMessages(responseData.messages)
-            setRerender(!rerender);
-        })();
-    }
-
-    const deleteReservation = dateId => {
-        (async _ => {
-            const response = await fetchWithCSRF(`/api/reservations/${dateId}`, {
-                method: 'PUT',
-            });
-            const responseData = await response.json();
-            if (!response.ok) setErrors(responseData.errors);
-            if (responseData.messages) setMessages(responseData.messages)
-            setRerender(!rerender);
-        })();
-    }
-
     return (
         <ul>
             {dates.map(date => (
-                <li key={date.id}>
-                    {date.date.split(" ").slice(0,4).join(" ")}
-                </li>
+                <>
+                <Date
+                    key={date.id}
+                    dateId={date.id}
+                    date={date.date.split(" ").slice(0, 4).join(" ")}
+                    yesList={date.yes_list}
+                    noList={date.no_list}
+                />
+                </>
             ))}
         </ul>
     )

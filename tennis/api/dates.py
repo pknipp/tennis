@@ -7,9 +7,21 @@ dates = Blueprint('dates', __name__)
 
 @dates.route('', methods=['GET'])
 def index():
-    dates = Date.query
-    for date in dates:
-        date.reservations = Reservation.query.filter(Reservation.date_id == date.id)
-    if request.method == 'GET':
-        return {"dates": [date.to_dict() for date in dates]}
-
+    if request.method == "GET":
+        date_list = list()
+        dates = Date.query
+        for date in dates:
+            reservations = Reservation.query.filter(Reservation.date_id == date.id)
+            date = date.to_dict()
+            yes_list = list()
+            no_list = list()
+            for reservation in reservations:
+                player = User.query.filter(User.id == reservation.user_id).one_or_none().to_dict()
+                if reservation.wants_to_play:
+                    yes_list.append(player)
+                else:
+                    no_list.append(player)
+            date["yes_list"] = yes_list
+            date["no_list"] = no_list
+            date_list.append(date)
+        return {"dates": date_list}
