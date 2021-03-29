@@ -48,6 +48,8 @@ class User(db.Model, UserMixin):
             "is_admin": self.is_admin,
         }
 
+    reservations = db.relationship("Reservation", back_populates="user", cascade="all, delete-orphan")
+
 
 class Date(db.Model, UserMixin):
     __tablename__ = 'dates'
@@ -64,6 +66,8 @@ class Date(db.Model, UserMixin):
             "created_at": self.created_at,
             "updated_at": self.updated_at
         }
+
+    reservations = db.relationship("Reservation", back_populates="date", cascade="all, delete-orphan")
 
 
 class Reservation(db.Model, UserMixin):
@@ -87,3 +91,6 @@ class Reservation(db.Model, UserMixin):
             "created_at": self.created_at,
             "updated_at": self.updated_at
         }
+
+    user = db.relationship("User", back_populates="reservations")
+    date = db.relationship("Date", back_populates="reservations")

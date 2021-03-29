@@ -27,7 +27,7 @@ const Date = ({ date, yesList, noList, reservation }) => {
                 }</div>
                 <div className="lists">
                     <div className="left-list">
-                        <div>People who want to play:</div>
+                        <div><i>People who want to play:</i></div>
                         <ol>
                             {yesList.map((player, index) => (
                                 <li>
@@ -43,7 +43,7 @@ const Date = ({ date, yesList, noList, reservation }) => {
                         </ol>
                     </div>
                     <div>
-                        <div>People who've cancelled their reservation:</div>
+                        <div><i>People who've cancelled their reservation:</i></div>
                         {noList.map((player, index) => (
                             <div>
                                 <Single
