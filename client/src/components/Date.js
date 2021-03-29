@@ -15,16 +15,32 @@ const Date = ({ date, yesList, noList, reservation }) => {
 
     return (
         <li>
-            <>
-            <h4>{date}</h4>
-            <div>{onAList ? null :
-                <><button onClick={reservation}>Play me</button><span> on this date.</span></>
-            }</div>
-            <div>People who want to play:</div>
-            <ol>{yesList.map(player => <li><Single key={player.id} player={player} reservation={reservation} /></li>)}</ol><br/>
-            <div>People who have cancelled their reservation:</div>
-            {noList.map(player => <div><Single key={player.id} player={player} reservation={reservation} /></div>)}
-            </>
+            <div>
+                <h4>{date}</h4>
+                <div>{onAList ? null :
+                    <><button onClick={reservation}>Play me</button><span> on this date.</span></>
+                }</div>
+                <div className="lists">
+                    <div>
+                        <div>People who want to play:</div>
+                            <ol>
+                                {yesList.map(player => (
+                                    <li>
+                                        <Single key={player.id} player={player} reservation= {reservation} />
+                                    </li>
+                                ))}
+                            </ol>
+                        </div>
+                        <div>
+                        <div>People who've cancelled their reservation:</div>
+                        {noList.map(player => (
+                            <div>
+                                <Single key={player.id} player={player}  reservation={reservation} />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
         </li>
     )
 }
