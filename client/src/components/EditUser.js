@@ -6,6 +6,8 @@ import AuthContext from '../auth'
 const EditUser = props => {
     const { fetchWithCSRF, currentUser, setCurrentUser } = useContext(AuthContext);
     const [email, setEmail] = useState(currentUser.email);
+    const [name, setName] = useState(currentUser.name);
+    const [phone, setPhone] = useState(currentUser.phone);
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('')
 
@@ -18,18 +20,21 @@ const EditUser = props => {
         (async _ => {
             const response = await fetchWithCSRF(`/api/users/${props.currentUser.id}`, {
                 method: 'PUT', headers: {"Content-Type": "application/json"}, credentials: 'include',
-                body: JSON.stringify({ email, password, password2 })
+                body: JSON.stringify({ email, name, phone, password, password2 })
             });
             const responseData = await response.json();
+            // console.log(responseData);
             if (!response.ok) {
                 setErrors(responseData.errors);
             } else if (responseData.messages) {
                 setMessages(responseData.messages)
             } else {
+                setCurrentUser(responseData.current_user);
                 history.push('/')
             }
         })();
     }
+
     const deleteUser = e => {
         e.preventDefault();
         (async _ => {
@@ -54,13 +59,24 @@ const EditUser = props => {
                 {errors.length ? errors.map(err => <li key={err}>{err}</li>) : ''}
                 <input
                     type="email" placeholder="Email" value={email}
-                    onChange={e => setEmail(e.target.value)} name="email" />
+                    onChange={e => setEmail(e.target.value)} name="email"
+                />
+                <input
+                    type="text" placeholder="Nickname" value={name}
+                    onChange={e => setName(e.target.value)} name="name"
+                />
+                <input
+                    type="text" placeholder="Phone # (w/area code)" value={phone}
+                    onChange={e => setPhone(e.target.value)} name="phone"
+                />
                 <input
                     type="password" placeholder="New password (required)" value={password}
-                    onChange={e => setPassword(e.target.value)} name="password" />
+                    onChange={e => setPassword(e.target.value)} name="password"
+                />
                 <input
                     type="password" placeholder="Confirm new password (required)" value={password2}
-                    onChange={e => setPassword2(e.target.value)} name="password2" />
+                    onChange={e => setPassword2(e.target.value)} name="password2"
+                />
                 <button type="submit">Submit Changes</button>
             </form>
             <form onSubmit={deleteUser}>

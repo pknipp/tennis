@@ -32,17 +32,17 @@ const SignUp = props => {
             {errors.map(err => <li key={err} >{err}</li>)}
             <div>Please fill out all fields.</div>
             <input
-                type="text" placeholder="email" value={email}
+                type="text" placeholder="Email" value={email}
                 onChange={e => setEmail(e.target.value)} name="email"
             />
 
             <input
-                type="text" placeholder="nickname" value={name}
+                type="text" placeholder="Nickname" value={name}
                 onChange={e => setName(e.target.value)} name="name"
             />
 
             <input
-                type="text" placeholder="phone # (w/area code)" value={phone}
+                type="text" placeholder="Phone # (w/area code)" value={phone}
                 onChange={e => setPhone(e.target.value)} name="phone"
             />
 
@@ -54,10 +54,6 @@ const SignUp = props => {
                 type="password" placeholder="Confirm password" value={password2}
                 onChange={e => setPassword2(e.target.value)} name="password2"
             />
-            {/* <span>
-                You are {playsSingles ? "willing to play singles if needed." : "not willing to play singles."}
-                <button onClick={() => setPlaysSingles(!playsSingles)}>Toggle</button>
-            </span> */}
             <button type="submit">Sign Up</button>
         </form>
     );

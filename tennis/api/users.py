@@ -23,6 +23,7 @@ def index():
         if not email or not password or not name or not phone:
             return {"errors": ["Missing required parameters"]}, 400
         user = User.query.filter(User.email == email).one_or_none()
+        print(user, user.id, current_user.id)
         if user:
             return {"errors": ["That email has already been taken."]}, 500
         user = User.query.filter(User.name == name).one_or_none()
@@ -52,7 +53,7 @@ def index():
 
 @users.route('/<id>', methods=['GET', 'PUT', 'DELETE'])
 def user_info(id):
-    print("id = ", id)
+    # print("id = ", id)
     user = User.query.filter(User.id == int(id))[0]
     userd= user.to_dict()
     if request.method == "GET":
@@ -70,6 +71,8 @@ def user_info(id):
         if user.id == 1:
             return {"errors": ["Don't edit our demo user's details.  Create a new account if you would like to test the 'Update User' route."]}, 401
         email = request.json.get('email', None)
+        name = request.json.get('name', None)
+        phone = request.json.get('phone', None)
         password = request.json.get('password', None)
         password2 = request.json.get('password2', None)
         if not password or not password2:
@@ -78,11 +81,17 @@ def user_info(id):
             user.password = password
             if email:
                 user_former = User.query.filter(User.email == email).one_or_none()
-                if user_former:
-                        return {"errors": ["That email has already been taken."]}, 500
+                if user_former and not user_former.id == current_user.id:
+                    return {"errors": ["That email has already been taken."]}, 500
+            if name:
+                user_former = User.query.filter(User.name == name).one_or_none()
+                if user_former and not user_former.id == current_user.id:
+                    return {"errors": ["That nickname has already been taken."]}, 500
         else:
             return {"errors": ["Passwords must match."]}, 400
         user.email = email or userd["email"]
+        user.name = name or userd["name"]
+        user.phone = phone or userd["phone"]
         user.updated_at = datetime.now()
         db.session.commit()
-        return user.to_dict()
+        return {"current_user": user.to_dict()}

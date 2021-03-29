@@ -16,7 +16,7 @@ const Dates = () => {
             const res = await fetch(`/api/dates`)
             if (res.ok) {
                 const data = await res.json();
-                console.log(data.dates);
+                // console.log(data.dates);
                 setDates(data.dates);
                 let bubble = data.dates.reduce((bubble, date) => {
                     return bubble || (date.yes_list.length % 2)
@@ -48,7 +48,7 @@ const Dates = () => {
     return (
         <>
             <div>
-                If your name appears on the preference-list for any date below, you may toggle your     preference for that date by clicking <button disabled>undo</button> next to your name.
+                If your name appears on the preference-list for any date below, you may toggle your preference for that date by clicking <button disabled>undo</button> next to your name.
             </div>
             <div>
                 <sup>*</sup>This indicates people willing to play singles on  the particular date.  Click    <button disabled>toggle *</button> below if you would like to change your preference for this.
