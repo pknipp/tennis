@@ -30,6 +30,19 @@ const Dates = () => {
         getDates();
     }, [rerender])
 
+    const reservation = dateId => {
+        (async _ => {
+            const response = await fetchWithCSRF(`/api/reservations/${dateId}`, {
+                method: 'PUT', headers: { "Content-Type": "application/json" },
+                credentials: 'include'
+            });
+            const responseData = await response.json();
+            if (!response.ok) setErrors(responseData.errors);
+            if (responseData.messages) setMessages(responseData.messages)
+            setRerender(!rerender);
+        })();
+    }
+
     return (
         <ul>
             {dates.map(date => (
@@ -40,6 +53,7 @@ const Dates = () => {
                     date={date.date.split(" ").slice(0, 4).join(" ")}
                     yesList={date.yes_list}
                     noList={date.no_list}
+                    reservation={() => reservation(date.id)}
                 />
                 </>
             ))}
