@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect
 from tennis.models import db, Reservation, Date, User
 from flask_login import current_user
-from datetime import datetime, date
+from datetime import date, datetime
 
 dates = Blueprint('dates', __name__)
 
@@ -9,10 +9,11 @@ dates = Blueprint('dates', __name__)
 def index():
     if request.method == "GET":
         date_list = list()
-        dates = Date.query
-        for date in dates:
-            reservations = Reservation.query.filter(Reservation.date_id == date.id).order_by(Reservation.updated_at.desc())
-            date = date.to_dict()
+        # today = date.today()
+        dates = Date.query.filter(Date.date > date.today())
+        for one_date in dates:
+            reservations = Reservation.query.filter(Reservation.date_id == one_date.id).order_by(Reservation.updated_at.desc())
+            one_date = one_date.to_dict()
             yes_list = list()
             no_list = list()
             for reservation in reservations:
@@ -23,7 +24,8 @@ def index():
                     yes_list.insert(0, player)
                 else:
                     no_list.append(player)
-            date["yes_list"] = yes_list
-            date["no_list"] = no_list
-            date_list.append(date)
+            one_date["yes_list"] = yes_list
+            one_date["no_list"] = no_list
+            date_list.append(one_date)
+        # print(date_list)
         return {"dates": date_list}

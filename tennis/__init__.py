@@ -11,7 +11,7 @@ from tennis.api.users import users
 from tennis.api.dates import dates
 from tennis.api.reservations import reservations
 from tennis.config import Config
-from datetime import datetime
+from datetime import datetime, date, timedelta
 
 
 app = Flask(__name__)
@@ -57,6 +57,15 @@ def react_root(path):
 
 @app.route('/restore')
 def restore():
+    dates = Date.query.all()
+    date0 = dates[len(dates) - 2].date
+    date1 = dates[len(dates) - 1].date
+    today = date.today()
+    if date1 < today:
+        now = datetime.now()
+        db.session.add(Date(date=date0 + timedelta(days=7), created_at=now, updated_at=now))
+        db.session.add(Date(date=date1 + timedelta(days=7), created_at=now, updated_at=now))
+        db.session.commit()
     id = current_user.id if current_user.is_authenticated else None
     user = None if not current_user.is_authenticated else current_user.to_dict()
     if current_user:

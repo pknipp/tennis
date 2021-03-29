@@ -41,7 +41,7 @@ with app.app_context():
         ))
     db.session.commit()
 
-dates = [date(2021, 4, 3), date(2021, 4, 4)]
+dates = [date(2021, 3, 27), date(2021, 3, 28), date(2021, 4, 3), date(2021, 4, 4)]
 
 with app.app_context():
     for date in dates:
@@ -53,23 +53,23 @@ with app.app_context():
     db.session.commit()
 
 reservations = [
-    (1, 1, True, True),
-    (1, 3, False, True),
-    (1, 4, True, False),
-    (1, 6, False, True),
-    (1, 8, True, False),
-    (1, 10, True, True),
-    (1, 12, True, False),
-    (1, 13, False, True),
-    (2, 2, True, False),
-    (2, 3, False, False),
-    (2, 5, True, True),
-    (2, 6, True, False),
-    (2, 8, False, True),
-    (2, 9, True, False),
-    (2, 11, True, True),
-    (2, 12, False, True),
-    (2, 13, True, False),
+    (3, 1, True, True),
+    (3, 3, False, True),
+    (3, 4, True, False),
+    (3, 6, False, True),
+    (3, 8, True, False),
+    (3, 10, True, True),
+    (3, 12, True, False),
+    (3, 13, False, True),
+    (4, 2, True, False),
+    (4, 3, False, False),
+    (4, 5, True, True),
+    (4, 6, True, False),
+    (4, 8, False, True),
+    (4, 9, True, False),
+    (4, 11, True, True),
+    (4, 12, False, True),
+    (4, 13, True, False),
 ]
 
 with app.app_context():

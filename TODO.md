@@ -1,7 +1,6 @@
-Refine EditUser component, and (possibly) reuse Signup for it.
-
 Components to create for admin:
 approve user, create date, delete date.
+insertion of a special date (Mon or Fri for a 3-day weekend?)
 
-automate the creation of the next week's dates, each time that a weekend passes
+test the automation of the creation of the next week's dates when a weekend passes
 use AWS to store player photos

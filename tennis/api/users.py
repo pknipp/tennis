@@ -23,7 +23,7 @@ def index():
         if not email or not password or not name or not phone:
             return {"errors": ["Missing required parameters"]}, 400
         user = User.query.filter(User.email == email).one_or_none()
-        print(user, user.id, current_user.id)
+        # print(user, user.id, current_user.id)
         if user:
             return {"errors": ["That email has already been taken."]}, 500
         user = User.query.filter(User.name == name).one_or_none()
