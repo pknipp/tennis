@@ -9,11 +9,9 @@ import Dates from './components/Dates';
 import ProtectedRoute from "./components/ProtectedRoute"
 import AuthRoute from "./components/AuthRoute"
 import AuthContext from './auth';
-// import Success from './components/Success';
-
 
 const App = _ => {
-    const [fetchWithCSRF, setFetchWithCSRF] = useState(() => fetch);
+    const [fetchWithCSRF] = useState(() => fetch);
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true)
     const authContextValue = {

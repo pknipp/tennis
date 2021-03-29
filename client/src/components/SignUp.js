@@ -5,7 +5,7 @@ const SignUp = props => {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
-    const [playsSingles, setPlaysSingles] = useState(true);
+    // const [playsSingles, setPlaysSingles] = useState(true);
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('')
     const { fetchWithCSRF, setCurrentUser } = useContext(AuthContext);

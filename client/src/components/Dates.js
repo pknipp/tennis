@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import AuthContext from '../auth';
 import Date from './Date';
 
 const Dates = () => {
     const [dates, setDates] = useState([]);
     const [rerender, setRerender]=useState(false);
+    const [bubble, setBubble] = useState(false);
     const [, setMessages]=useState([]);
     const [, setErrors]   = useState([]);
-    const { currentUser, fetchWithCSRF } = useContext(AuthContext)
+    const { fetchWithCSRF } = useContext(AuthContext)
 
     const getDates = async () => {
         try {
@@ -17,6 +18,10 @@ const Dates = () => {
                 const data = await res.json();
                 console.log(data.dates);
                 setDates(data.dates);
+                let bubble = data.dates.reduce((bubble, date) => {
+                    return bubble || (date.yes_list.length % 2)
+                }, false);
+                setBubble(bubble);
             }
         } catch (err) {
             console.error(err)
@@ -42,26 +47,29 @@ const Dates = () => {
 
     return (
         <>
-        <div>
-            If your name appears on the preference-list for any date below, you may toggle your preference for that date by clicking "undo" next to your name.
-        </div>
-        <div>
-            <sup>*</sup>Indicates people willing to play singles for any particular date.  Click "toggle *" below if you would like to change this preference.
-        </div>
-        <ul>
-            {dates.map(date => (
-                <>
-                <Date
-                    key={date.id}
-                    dateId={date.id}
-                    date={date.date.split(" ").slice(0, 4).join(" ")}
-                    yesList={date.yes_list}
-                    noList={date.no_list}
-                    reservation={toggleSingles => reservation(date.id, toggleSingles)}
-                /><br/>
-                </>
-            ))}
-        </ul>
+            <div>
+                If your name appears on the preference-list for any date below, you may toggle your     preference for that date by clicking <button disabled>undo</button> next to your name.
+            </div>
+            <div>
+                <sup>*</sup>This indicates people willing to play singles on  the particular date.  Click    <button disabled>toggle *</button> below if you would like to change your preference for this.
+            </div>
+            {!bubble ? null :
+                <div>
+                    <sup>#</sup>This person/people is/are either "on the bubble" (if they were the last one to make a reservation) or "on the hook" (if they were the last one to cancel a reservation) because of the odd number of people presently in the lineup.
+                </div>
+            }
+            <ul>
+                {dates.map(date => (
+                    <Date
+                        key={date.id}
+                        dateId={date.id}
+                        date={date.date.split(" ").slice(0, 4).join(" ")}
+                        yesList={date.yes_list}
+                        noList={date.no_list}
+                        reservation={toggleSingles => reservation(date.id, toggleSingles)}
+                    />
+                ))}
+            </ul>
         </>
     )
 }

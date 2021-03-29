@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useState, reservation } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext } from 'react';
+// import { NavLink } from 'react-router-dom';
 import AuthContext from '../auth';
 
-const Single = ({ player, reservation, singles, scheduled }) => {
-    const [, setMessages]=useState([]);
-    const [, setErrors]   = useState([]);
-    const { currentUser, fetchWithCSRF } = useContext(AuthContext)
+const Single = ({ player, reservation, singles, scheduled, bubble }) => {
+    // const [, setMessages]=useState([]);
+    // const [, setErrors]   = useState([]);
+    const { currentUser } = useContext(AuthContext)
 
     return (
         <>
+            {bubble ? "#" : null}
             {(singles && scheduled ? "*" : "") + player.name}
             {currentUser.id !== player.id ? null :
                 <>

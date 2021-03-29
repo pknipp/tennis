@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState, reservation } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext } from 'react';
+// import { NavLink } from 'react-router-dom';
 import AuthContext from '../auth';
 import Single from './Single';
 
 const Date = ({ date, yesList, noList, reservation }) => {
-    const [rerender, setRerender]=useState(false);
-    const [, setMessages]=useState([]);
-    const [, setErrors]   = useState([]);
-    const { currentUser, fetchWithCSRF } = useContext(AuthContext);
+    // const [rerender, setRerender]=useState(false);
+    // const [, setMessages]=useState([]);
+    // const [, setErrors]   = useState([]);
+    const { currentUser } = useContext(AuthContext);
 
     const onYesList = yesList.map(player => player.id).includes(currentUser.id);
     const onNoList  =  noList.map(player => player.id).includes(currentUser.id);
@@ -27,26 +27,28 @@ const Date = ({ date, yesList, noList, reservation }) => {
                 }</div>
                 <div className="lists">
                     <div className="left-list">
-                        <div>people who want to play:</div>
+                        <div>People who want to play:</div>
                         <ol>
-                            {yesList.map(player => (
+                            {yesList.map((player, index) => (
                                 <li>
                                     <Single key={player.id}
                                         player={player}
                                         reservation={reservation}
                                         singles={player.will_play_singles}
                                         scheduled={true}
+                                        bubble={(yesList.length % 2) && index === yesList.length - 1}
                                     />
                                 </li>
                             ))}
                         </ol>
                     </div>
                     <div>
-                        <div>people who've cancelled their reservation:</div>
-                        {noList.map(player => (
+                        <div>People who've cancelled their reservation:</div>
+                        {noList.map((player, index) => (
                             <div>
                                 <Single
                                     key={player.id} player={player} reservation={reservation}
+                                    bubble={(yesList.length % 2) && !index}
                                 />
                             </div>
                         ))}
