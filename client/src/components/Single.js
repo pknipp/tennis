@@ -8,13 +8,14 @@ const Single = ({ player, reservation, singles, scheduled }) => {
     const { currentUser, fetchWithCSRF } = useContext(AuthContext)
 
     return (
-
         <>
             {(singles && scheduled ? "*" : "") + player.name}
             {currentUser.id !== player.id ? null :
                 <>
-                <button onClick={() => reservation(false)}>undo</button>
-                {scheduled ? <button onClick={() => reservation(true)}>toggle *</button> : null}
+                    <button onClick={() => reservation(false)}>undo</button>
+                    {!scheduled ? null :
+                        <button onClick={() => reservation(true)}>toggle *</button>
+                    }
                 </>
             }
         </>

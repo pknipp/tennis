@@ -46,7 +46,7 @@ const Dates = () => {
             If your name appears on the preference-list for any date below, you may toggle your preference for that date by clicking "undo" next to your name.
         </div>
         <div>
-            <sup>*</sup>Indicates people willing to play singles.  Click "toggle *" below if you would like to toggle this preference.
+            <sup>*</sup>Indicates people willing to play singles for any particular date.  Click "toggle *" below if you would like to change this preference.
         </div>
         <ul>
             {dates.map(date => (

@@ -18,30 +18,35 @@ const Date = ({ date, yesList, noList, reservation }) => {
             <div>
                 <h4>{date}</h4>
                 <div>{onAList ? null :
-                    <><span>I want to play</span>
-                    <button onClick={() => reservation(false)}>doubles only</button>
-                    <button onClick={() => reservation(true)}>singles or doubles</button>
-                    <span> on this date.</span></>
+                    <>
+                        <span>I want to play</span>
+                        <button onClick={() => reservation(false)}>doubles only</button>
+                        <button onClick={() => reservation(true)}>singles or doubles</button>
+                        <span> on this date.</span>
+                    </>
                 }</div>
                 <div className="lists">
+                    <div className="left-list">
+                        <div>people who want to play:</div>
+                        <ol>
+                            {yesList.map(player => (
+                                <li>
+                                    <Single key={player.id}
+                                        player={player}
+                                        reservation={reservation}
+                                        singles={player.will_play_singles}
+                                        scheduled={true}
+                                    />
+                                </li>
+                            ))}
+                        </ol>
+                    </div>
                     <div>
-                        <div>People who want to play:</div>
-                            <ol>
-                                {yesList.map(player => (
-                                    <li>
-                                        <Single key={player.id} player={player}
-                                            reservation={reservation} singles={player.will_play_singles} scheduled={true}
-                                        />
-                                    </li>
-                                ))}
-                            </ol>
-                        </div>
-                        <div>
-                        <div>People who've cancelled their reservation:</div>
+                        <div>people who've cancelled their reservation:</div>
                         {noList.map(player => (
                             <div>
-                                <Single key={player.id} player={player}
-                                    reservation={reservation} 
+                                <Single
+                                    key={player.id} player={player} reservation={reservation}
                                 />
                             </div>
                         ))}
