@@ -12,7 +12,7 @@ const Single = ({ player, reservation, singles }) => {
         <>
             {(singles ? "*" : "") + player.name}
             {currentUser.id !== player.id ? null :
-                <button onClick={reservation}>undo</button>
+                <button onClick={() => reservation(player.will_play_singles)}>undo</button>
             }
         </>
     )

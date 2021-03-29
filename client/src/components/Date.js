@@ -29,7 +29,7 @@ const Date = ({ date, yesList, noList, reservation }) => {
                             <ol>
                                 {yesList.map(player => (
                                     <li>
-                                        <Single key={player.id} player={player} reservation= {() => reservation(player.will_play_singles)} singles={player.will_play_singles} />
+                                        <Single key={player.id} player={player} reservation= {reservation} singles={player.will_play_singles} />
                                     </li>
                                 ))}
                             </ol>
@@ -38,7 +38,7 @@ const Date = ({ date, yesList, noList, reservation }) => {
                         <div>People who've cancelled their reservation:</div>
                         {noList.map(player => (
                             <div>
-                                <Single key={player.id} player={player}  reservation={() => reservation(player.will_play_singles)} />
+                                <Single key={player.id} player={player}  reservation={reservation} />
                             </div>
                         ))}
                     </div>
