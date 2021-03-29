@@ -19,7 +19,7 @@ const NavBar = ({ currentUser }) => {
     <div className="nav-container">
         <h1>
             Welcome {(currentUser) ? `${currentUser.name} ` : ""}
-            to the scheduler for our tennis group.
+            to the online scheduler for our tennis group.
         </h1>
         <div>{currentUser ? user : noUser}</div>
     </div>

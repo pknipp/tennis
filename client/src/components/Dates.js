@@ -43,7 +43,7 @@ const Dates = () => {
     return (
         <>
         <div>
-            If your name appears on any preference-list below, you may toggle that preference by clicking "undo" next to your name.
+            If your name appears on the preference-list below for any date, you may toggle your preference for that date by clicking "undo" next to your name.
         </div>
         <ul>
             {dates.map(date => (
