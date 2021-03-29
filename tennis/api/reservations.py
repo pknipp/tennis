@@ -21,7 +21,7 @@ def index(date_id):
             )
         else:
             reservation.wants_to_play=not reservation.wants_to_play
-            updated_at=datetime.now
+            reservation.updated_at=datetime.now()
         db.session.add(reservation)
         db.session.commit()
         return {"message": "Your intent has now been toggled."}

@@ -11,14 +11,14 @@ def index():
         date_list = list()
         dates = Date.query
         for date in dates:
-            reservations = Reservation.query.filter(Reservation.date_id == date.id)
+            reservations = Reservation.query.filter(Reservation.date_id == date.id).order_by(Reservation.updated_at.desc())
             date = date.to_dict()
             yes_list = list()
             no_list = list()
             for reservation in reservations:
                 player = User.query.filter(User.id == reservation.user_id).one_or_none().to_dict()
                 if reservation.wants_to_play:
-                    yes_list.append(player)
+                    yes_list.insert(0, player)
                 else:
                     no_list.append(player)
             date["yes_list"] = yes_list

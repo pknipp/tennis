@@ -13,17 +13,17 @@ load_dotenv()
 users = [
     ("demo@aol.com", "Demo User", False, "(123)456-7890"),
     ("peteraknipp@gmail.com", "Pete K", True, "(914)462-7916"),
-    ("adoe@gmail.com", "Andy D", False, "(834)462-3487"),
-    ("bdoe@gmail.com", "Bobby D", False, "(834)462-3487"),
-    ("cdoe@gmail.com", "Charlie D", False, "(834)462-3487"),
-    ("ddoe@gmail.com", "Danny D", False, "(834)462-3487"),
-    ("edoe@gmail.com", "Eddie D", False, "(834)462-3487"),
-    ("fdoe@gmail.com", "Freddy D", False, "(834)462-3487"),
-    ("gdoe@gmail.com", "George D", False, "(834)462-3487"),
-    ("hdoe@gmail.com", "Heidi D", False, "(834)462-3487"),
-    ("idoe@gmail.com", "Ian D", False, "(834)462-3487"),
-    ("jdoe@gmail.com", "Jenny D", False, "(834)462-3487"),
-    ("kdoe@gmail.com", "Kiki D", False, "(834)462-3487"),
+    ("adoe@aol.com", "Andy D", False, "(834)462-3487"),
+    ("bdoe@aol.com", "Bobby D", False, "(834)462-3487"),
+    ("cdoe@aol.com", "Charlie D", False, "(834)462-3487"),
+    ("ddoe@aol.com", "Danny D", False, "(834)462-3487"),
+    ("edoe@aol.com", "Eddie D", False, "(834)462-3487"),
+    ("fdoe@aol.com", "Freddy D", False, "(834)462-3487"),
+    ("gdoe@aol.com", "George D", False, "(834)462-3487"),
+    ("hdoe@aol.com", "Heidi D", False, "(834)462-3487"),
+    ("idoe@aol.com", "Ian D", False, "(834)462-3487"),
+    ("jdoe@aol.com", "Jenny D", False, "(834)462-3487"),
+    ("kdoe@aol.com", "Kiki D", False, "(834)462-3487"),
 ]
 
 with app.app_context():
