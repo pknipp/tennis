@@ -16,13 +16,16 @@ def index(date_id):
                 user_id=user_id,
                 date_id=date_id,
                 wants_to_play=True,
-                will_play_singles=request.json.get("willPlaySingles", None),
+                will_play_singles=request.json.get("toggleSingles", False),
                 created_at=datetime.now(),
                 updated_at=datetime.now(),
             )
         else:
-            reservation.wants_to_play=not reservation.wants_to_play
-            reservation.updated_at=datetime.now()
+            if request.json.get("toggleSingles", None):
+                reservation.will_play_singles = not reservation.will_play_singles
+            else:
+                reservation.wants_to_play = not reservation.wants_to_play
+                reservation.updated_at=datetime.now()
         db.session.add(reservation)
         db.session.commit()
         return {"message": "Your intent has now been toggled."}
