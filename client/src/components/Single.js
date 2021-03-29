@@ -8,12 +8,12 @@ const Single = ({ player, reservation }) => {
     const { currentUser, fetchWithCSRF } = useContext(AuthContext)
 
     return (
-        <li>
+        <>
             {player.name}
             <button onClick={reservation}>
                 undo
             </button>
-        </li>
+        </>
     )
 }
 

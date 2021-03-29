@@ -5,10 +5,7 @@ import Date from './Date';
 
 const Dates = () => {
     const [dates, setDates] = useState([]);
-    const [courseIds, setCourseIds] = useState([]);
-    const [moreCourses, setMoreCourses] = useState([]);
     const [rerender, setRerender]=useState(false);
-    const [showMoreCourses, setShowMoreCourses] = useState(false);
     const [, setMessages]=useState([]);
     const [, setErrors]   = useState([]);
     const { currentUser, fetchWithCSRF } = useContext(AuthContext)
@@ -44,6 +41,10 @@ const Dates = () => {
     }
 
     return (
+        <>
+        <div>
+            If your name appears on any preference-list below, you may toggle that preference by clicking "undo" next to your name.
+        </div>
         <ul>
             {dates.map(date => (
                 <>
@@ -54,10 +55,11 @@ const Dates = () => {
                     yesList={date.yes_list}
                     noList={date.no_list}
                     reservation={() => reservation(date.id)}
-                />
+                /><br/>
                 </>
             ))}
         </ul>
+        </>
     )
 }
 
