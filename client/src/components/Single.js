@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, reservation } from 'react';
 import { NavLink } from 'react-router-dom';
 import AuthContext from '../auth';
 
-const Single = ({ player, reservation }) => {
+const Single = ({ player, reservation, singles }) => {
     const [, setMessages]=useState([]);
     const [, setErrors]   = useState([]);
     const { currentUser, fetchWithCSRF } = useContext(AuthContext)
@@ -10,7 +10,7 @@ const Single = ({ player, reservation }) => {
     return (
 
         <>
-            {player.name}
+            {(singles ? "*" : "") + player.name}
             {currentUser.id !== player.id ? null :
                 <button onClick={reservation}>undo</button>
             }

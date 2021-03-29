@@ -27,11 +27,11 @@ const Dates = () => {
         getDates();
     }, [rerender])
 
-    const reservation = dateId => {
+    const reservation = (dateId, willPlaySingles) => {
         (async _ => {
             const response = await fetchWithCSRF(`/api/reservations/${dateId}`, {
                 method: 'PUT', headers: { "Content-Type": "application/json" },
-                credentials: 'include'
+                credentials: 'include', body: JSON.stringify({ willPlaySingles })
             });
             const responseData = await response.json();
             if (!response.ok) setErrors(responseData.errors);
@@ -45,6 +45,9 @@ const Dates = () => {
         <div>
             If your name appears on the preference-list for any date below, you may toggle your preference for that date by clicking "undo" next to your name.
         </div>
+        <div>
+            <sup>*</sup>Indicates people willing to play singles.
+        </div>
         <ul>
             {dates.map(date => (
                 <>
@@ -54,7 +57,7 @@ const Dates = () => {
                     date={date.date.split(" ").slice(0, 4).join(" ")}
                     yesList={date.yes_list}
                     noList={date.no_list}
-                    reservation={() => reservation(date.id)}
+                    reservation={willPlaySingles => reservation(date.id, willPlaySingles)}
                 /><br/>
                 </>
             ))}

@@ -38,7 +38,6 @@ with app.app_context():
             phone=user[3],
             created_at=datetime.now(),
             updated_at=datetime.now(),
-            plays_singles=True,
         ))
     db.session.commit()
 
@@ -54,23 +53,23 @@ with app.app_context():
     db.session.commit()
 
 reservations = [
-    (1, 1, True),
-    (1, 3, False),
-    (1, 4, True),
-    (1, 6, False),
-    (1, 8, True),
-    (1, 10, True),
-    (1, 12, True),
-    (1, 13, False),
-    (2, 2, True),
-    (2, 3, False),
-    (2, 5, True),
-    (2, 6, True),
-    (2, 8, False),
-    (2, 9, True),
-    (2, 11, True),
-    (2, 12, False),
-    (2, 13, True),
+    (1, 1, True, True),
+    (1, 3, False, True),
+    (1, 4, True, False),
+    (1, 6, False, True),
+    (1, 8, True, False),
+    (1, 10, True, True),
+    (1, 12, True, False),
+    (1, 13, False, True),
+    (2, 2, True, False),
+    (2, 3, False, False),
+    (2, 5, True, True),
+    (2, 6, True, False),
+    (2, 8, False, True),
+    (2, 9, True, False),
+    (2, 11, True, True),
+    (2, 12, False, True),
+    (2, 13, True, False),
 ]
 
 with app.app_context():
@@ -79,6 +78,7 @@ with app.app_context():
             user_id=reservation[1],
             date_id=reservation[0],
             wants_to_play=reservation[2],
+            will_play_singles=reservation[3],
             created_at=datetime.now(),
             updated_at=datetime.now(),
         ))

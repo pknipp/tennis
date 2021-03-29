@@ -17,6 +17,8 @@ def index():
             no_list = list()
             for reservation in reservations:
                 player = User.query.filter(User.id == reservation.user_id).one_or_none().to_dict()
+                if reservation.will_play_singles:
+                    player["will_play_singles"] = True
                 if reservation.wants_to_play:
                     yes_list.insert(0, player)
                 else:

@@ -13,7 +13,6 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(22), nullable=False, unique=True)
     phone = db.Column(db.String(15), nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False)
-    plays_singles = db.Column(db.Boolean, nullable=False)
     hashed_password = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
@@ -47,7 +46,6 @@ class User(db.Model, UserMixin):
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "is_admin": self.is_admin,
-            "plays_singles": self.plays_singles,
         }
 
 
@@ -75,6 +73,7 @@ class Reservation(db.Model, UserMixin):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     date_id = db.Column(db.Integer,db.ForeignKey("dates.id"), nullable=False)
     wants_to_play = db.Column(db.Boolean, nullable=False)
+    will_play_singles = db.Column(db.Boolean, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
 
@@ -84,6 +83,7 @@ class Reservation(db.Model, UserMixin):
             "user_id": self.user_id,
             "date_id": self.date_id,
             "wants_to_play": self.wants_to_play,
+            "will_play_singles": self.will_play_singles,
             "created_at": self.created_at,
             "updated_at": self.updated_at
         }

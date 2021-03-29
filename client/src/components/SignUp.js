@@ -16,7 +16,7 @@ const SignUp = props => {
         (async _ => {
             const response = await fetchWithCSRF(`/api/users/`, {
                 method: 'POST', headers: { "Content-Type": "application/json" },
-                credentials: 'include', body: JSON.stringify({ email, password, password2, name, phone, playsSingles })
+                credentials: 'include', body: JSON.stringify({ email, password, password2, name, phone })
             });
             const responseData = await response.json();
             if (!response.ok) {
@@ -54,10 +54,10 @@ const SignUp = props => {
                 type="password" placeholder="Confirm password" value={password2}
                 onChange={e => setPassword2(e.target.value)} name="password2"
             />
-            <span>
+            {/* <span>
                 You are {playsSingles ? "willing to play singles if needed." : "not willing to play singles."}
                 <button onClick={() => setPlaysSingles(!playsSingles)}>Toggle</button>
-            </span>
+            </span> */}
             <button type="submit">Sign Up</button>
         </form>
     );

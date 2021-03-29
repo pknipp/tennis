@@ -16,6 +16,7 @@ def index(date_id):
                 user_id=user_id,
                 date_id=date_id,
                 wants_to_play=True,
+                will_play_singles=request.json.get("willPlaySingles", None),
                 created_at=datetime.now(),
                 updated_at=datetime.now(),
             )

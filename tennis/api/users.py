@@ -18,7 +18,7 @@ def index():
         email = request.json.get('email', None)
         name = request.json.get('name', None)
         phone = request.json.get('phone', None)
-        plays_singles = request.json.get('playsSingles', False)
+        # plays_singles = request.json.get('playsSingles', False)
         password = request.json.get('password', None)
         if not email or not password or not name or not phone:
             return {"errors": ["Missing required parameters"]}, 400
@@ -35,7 +35,7 @@ def index():
             email=email,
             name=name,
             phone=phone,
-            plays_singles=plays_singles,
+            # plays_singles=plays_singles,
             password=password,
             created_at=datetime.now(),
             updated_at=datetime.now(),
