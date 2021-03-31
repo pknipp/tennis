@@ -1,3 +1,5 @@
+AWS instructions for flask: https://hackmd.io/@jpshafto/SyWY45KGu
+
 This is the backend for the Flask React project.
 
 ## Getting started
@@ -76,4 +78,7 @@ pipenv install --dev -r dev-requirements.txt --python=python3 && pipenv install 
    heroku run -a {NAME_OF_HEROKU_APP} python -m database
    ```
 10. Under Settings find "Config Vars" and add any additional/secret .env variables.
-11. profit
+11. docker system prune -a -f (in order to keep things from getting bloated)
+
+from @chrishakos:
+"you're also probably on an AWS ec2 via heroku which also needs the occasional apt-get clean and apt-get autoremove"
