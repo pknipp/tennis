@@ -58,6 +58,7 @@ def react_root(path):
 @app.route('/restore')
 def restore():
     dates = Date.query.all()
+    users = User.query.all()
     date0 = dates[len(dates) - 2].date
     date1 = dates[len(dates) - 1].date
     today = date.today()
@@ -65,6 +66,25 @@ def restore():
         now = datetime.now()
         db.session.add(Date(date=date0 + timedelta(days=7), created_at=now, updated_at=now))
         db.session.add(Date(date=date1 + timedelta(days=7), created_at=now, updated_at=now))
+        db.session.commit()
+
+        prob_respond = 0.7
+        prob_cancel = 0.3
+        prob_singles = 0.4
+
+        for i in range(len(users)):
+            for j in range(2):
+                if random() < prob_respond:
+                    wants_to_play = False if random() < prob_cancel else True
+                    will_play_singles = True if random() < prob_singles else False
+                    db.session.add(Reservation(
+                        user_id=i + 1,
+                        date_id=len(dates) + j + 1,
+                        wants_to_play=wants_to_play,
+                        will_play_singles=will_play_singles,
+                        created_at=datetime.now(),
+                        updated_at=datetime.now(),
+                    ))
         db.session.commit()
     id = current_user.id if current_user.is_authenticated else None
     user = None if not current_user.is_authenticated else current_user.to_dict()
