@@ -6,6 +6,7 @@ const NavBar = ({ currentUser }) => {
         <>
             <NavLink exact to="/" activeClassName="active">Home</NavLink>
             <NavLink to="/edituser" activeClassName="active">Account Details</NavLink>
+            <NavLink to="/members" activeClassName="active">Members</NavLink>
             <NavLink to="/logout" activeClassName="active">Log Out</NavLink>
         </>
     );

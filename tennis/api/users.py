@@ -10,7 +10,7 @@ users = Blueprint('users', __name__)
 @users.route('', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
-        response = User.query.all()
+        response = User.query.order_by(User.name)
         return {"users": [user.to_dict() for user in response]}
     if request.method == 'POST':
         if not request.is_json:

@@ -5,6 +5,8 @@
     margin-right: auto;
     height: 200px;
   }
+.small {height: 50px; }
+.tableContainer {display: flex; justify-content: center; }
 .navContainer,.switch,form {display: flex}
 .navContainer {justify-content: space-evenly}
 .switch,form {
