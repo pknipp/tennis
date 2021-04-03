@@ -10,7 +10,8 @@ def index():
     if request.method == "GET":
         date_list = list()
         # today = date.today()
-        dates = Date.query.filter(Date.date >= date.today())
+        # dates = Date.query.filter(Date.date >= date.today())
+        dates = Date.query
         for one_date in dates:
             reservations = Reservation.query.filter(Reservation.date_id == one_date.id).order_by(Reservation.updated_at.desc())
             one_date = one_date.to_dict()

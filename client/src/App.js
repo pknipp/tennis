@@ -27,7 +27,6 @@ const App = _ => {
             const response = await fetch('/restore');
             const data = await response.json();
             setCurrentUser(data.current_user);
-            console.log(data.current_user);
             setLoading(false);
         })()
     }, [])

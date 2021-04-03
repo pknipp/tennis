@@ -92,7 +92,7 @@ const EditUser = props => {
                 />
                 <button type="submit">Submit Changes</button>
             </form>
-            {!url ? null : <img className="middle" src={url} /> }
+            {!url ? null : <img className="middle" src={url} alt={url ? currentUser.name : "nothing"} /> }
             <form onSubmit={submitPhoto}>
                 <h3>{url ? "Would you like to update your photo?" : "Please upload a headshot."}</h3>
                 <div>

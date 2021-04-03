@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import AuthContext from '../auth';
 import Single from './Single';
 
-const Date = ({ date, yesList, noList, reservation }) => {
+const Date = ({ dateId, date, yesList, noList, reservation }) => {
     // const [rerender, setRerender]=useState(false);
     // const [, setMessages]=useState([]);
     // const [, setErrors]   = useState([]);
@@ -30,28 +30,26 @@ const Date = ({ date, yesList, noList, reservation }) => {
                         <div><i>People who want to play:</i></div>
                         <ol>
                             {yesList.map((player, index) => (
-                                <li>
-                                    <Single key={player.id}
-                                        player={player}
-                                        reservation={reservation}
-                                        singles={player.will_play_singles}
-                                        scheduled={true}
-                                        bubble={(yesList.length % 2) && index === yesList.length - 1}
-                                    />
-                                </li>
+                                <Single key={`${dateId}y${player.id}`}
+                                    player={player}
+                                    reservation={reservation}
+                                    singles={player.will_play_singles}
+                                    scheduled={true}
+                                    bubble={(yesList.length % 2) && index === yesList.length- 1}
+                                />
                             ))}
                         </ol>
                     </div>
                     <div>
                         <div><i>People who've cancelled their reservation:</i></div>
-                        {noList.map((player, index) => (
-                            <div>
+                        <ol>
+                            {noList.map((player, index) => (
                                 <Single
-                                    key={player.id} player={player} reservation={reservation}
+                                    key={`${dateId}n${player.id}`} player={player} reservation={reservation}
                                     bubble={(yesList.length % 2) && !index}
                                 />
-                            </div>
-                        ))}
+                            ))}
+                        </ol>
                     </div>
                 </div>
             </div>

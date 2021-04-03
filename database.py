@@ -29,7 +29,7 @@ users = [
     ('adoe@aol.com','Andy D','(834)462-3487',False,None),
     ('bdoe@aol.com','Bobby D','(834)462-3487',False,None),
     ('novak@aol.com','Novak','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30757432021.png'),
-    ('roger@aol.com','Roger F','unlisted',False,None),
+    ('roger@aol.com','Roger F','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr31444062021.png'),
     ('rafa@aol.com','Rafa N','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30759302021.png'),
     ('chrissie@aol.com','Chrissie E','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30804162021.png'),
     ('arthur@aol.com','Arthur A','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30805142021.png'),

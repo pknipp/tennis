@@ -18,6 +18,7 @@ const Dates = () => {
                 const data = await res.json();
                 // console.log(data.dates);
                 setDates(data.dates);
+                console.log(data.dates[0].date);
                 setCurrentUser(data.current_user);
                 let bubble = data.dates.reduce((bubble, date) => {
                     return bubble || (date.yes_list.length % 2)

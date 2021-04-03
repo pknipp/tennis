@@ -7,6 +7,5 @@ test the automation of the creation of the next week's dates (& reservations) wh
 include "isPrivate" column in User model (and use this to hide phone numbers on roster?)
 use localstorage to store password?
 change photo_url to use user's id#?
-seed user photos
 User faker to seed phone numbers (and first names, if these can be generated uniquely?)
-Seed the User's table w/famous tennis players.
+allow the user to toggle the display of availabilities for past dates

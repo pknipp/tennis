@@ -8,7 +8,7 @@ const Single = ({ player, reservation, singles, scheduled, bubble }) => {
     const { currentUser } = useContext(AuthContext)
 
     return (
-        <>
+        <li>
             {bubble ? "#" : null}
             {(singles && scheduled ? "*" : "") + player.name}
             {currentUser.id !== player.id ? null :
@@ -19,7 +19,7 @@ const Single = ({ player, reservation, singles, scheduled, bubble }) => {
                     }
                 </>
             }
-        </>
+        </li>
     )
 }
 

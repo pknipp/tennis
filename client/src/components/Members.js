@@ -5,10 +5,10 @@ import Member from './Member';
 
 
 const Members = () => {
-    const { fetchWithCSRF, currentUser, setCurrentUser } = useContext(AuthContext);
+    const { fetchWithCSRF } = useContext(AuthContext);
     const [users, setUsers] = useState([]);
-    const [errors, setErrors] = useState([]);
-    const [messages, setMessages] = useState([]);
+    const [, setErrors] = useState([]);
+    const [, setMessages] = useState([]);
     // let history = useHistory();
 
     const getUsers = _ => {
