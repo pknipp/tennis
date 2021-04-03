@@ -9,7 +9,7 @@ const Dates = () => {
     const [bubble, setBubble] = useState(false);
     const [, setMessages]=useState([]);
     const [, setErrors]   = useState([]);
-    const { fetchWithCSRF } = useContext(AuthContext)
+    const { currentUser, setCurrentUser, fetchWithCSRF } = useContext(AuthContext)
 
     const getDates = async () => {
         try {
@@ -18,6 +18,7 @@ const Dates = () => {
                 const data = await res.json();
                 // console.log(data.dates);
                 setDates(data.dates);
+                setCurrentUser(data.current_user);
                 let bubble = data.dates.reduce((bubble, date) => {
                     return bubble || (date.yes_list.length % 2)
                 }, false);
@@ -47,6 +48,7 @@ const Dates = () => {
 
     return (
         <>
+            <h3>{currentUser.photo_url ? null : 'Please go to "Account Details" and upload a headshot.'} </h3>
             <div>
                 If your name appears on the preference-list for any date below, you may toggle your preference for that date by clicking <button disabled>undo</button> next to your name.
             </div>

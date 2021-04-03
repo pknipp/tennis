@@ -10,7 +10,9 @@ const EditUser = props => {
     const [phone, setPhone] = useState(currentUser.phone);
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('')
-
+    const [image, setImage] = useState(null);
+    const [imageLoading, setImageLoading] = useState(false);
+    const [url, setUrl] = useState(currentUser.photo_url);
     const [errors, setErrors] = useState([]);
     const [messages, setMessages] = useState([]);
     let history = useHistory();
@@ -53,6 +55,17 @@ const EditUser = props => {
         })();
     }
 
+    const submitPhoto = async e => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("image", image);
+        setImageLoading(true);
+        const data = await fetch('/api/photos', {method: "POST", body: formData});
+        setImageLoading(false);
+        setImage(null);
+        return (data.ok) ? setUrl((await data.json()).photo_url) : console.log("error");
+    }
+
     return (
         <>
             <form onSubmit={submitForm}>
@@ -78,6 +91,15 @@ const EditUser = props => {
                     onChange={e => setPassword2(e.target.value)} name="password2"
                 />
                 <button type="submit">Submit Changes</button>
+            </form>
+            {!url ? null : <img className="middle" src={url} /> }
+            <form onSubmit={submitPhoto}>
+                <h3>{url ? "Would you like to update your photo?" : "Please upload a headshot."}</h3>
+                <div>
+                    <input type="file" accept="image/*" onChange={e => setImage(e.target.files[0])}/>
+                    {!image ? null : <button type="submit">Submit</button>}
+                    {imageLoading && <span>Loading...</span>}
+                </div>
             </form>
             <form onSubmit={deleteUser}>
                 {messages.map(err => <li key={err}>{err}</li>)}

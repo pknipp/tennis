@@ -26,6 +26,8 @@ s3 = boto3.client(
 #     unique_filename = uuid.uuid4().hex
 #     return f"{unique_filename}.{ext}"
 
+## KNIPP comment: instead base filename upon user.name (which is unique)
+
 # uploaded from slacked instructions
 # BUCKET_NAME = os.environ.get("S3_BUCKET")
 # S3_LOCATION = f"http://{BUCKET_NAME}.s3.amazonaws.com/"

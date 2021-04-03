@@ -14,7 +14,7 @@ const SignUp = props => {
     const submitForm = e => {
         e.preventDefault();
         (async _ => {
-            const response = await fetchWithCSRF(`/api/users/`, {
+            const response = await fetchWithCSRF(`/api/users`, {
                 method: 'POST', headers: { "Content-Type": "application/json" },
                 credentials: 'include', body: JSON.stringify({ email, password, password2, name, phone })
             });
@@ -27,6 +27,7 @@ const SignUp = props => {
             }
         })();
     }
+
     return (
         <form onSubmit={submitForm}>
             {errors.map(err => <li key={err} >{err}</li>)}

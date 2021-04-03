@@ -10,6 +10,7 @@ from tennis.api.session import session
 from tennis.api.users import users
 from tennis.api.dates import dates
 from tennis.api.reservations import reservations
+from tennis.api.photos import photos
 from tennis.config import Config
 from datetime import datetime, date, timedelta
 
@@ -22,6 +23,7 @@ app.register_blueprint(session, url_prefix='/api/session')
 app.register_blueprint(users, url_prefix='/api/users')
 app.register_blueprint(dates, url_prefix='/api/dates')
 app.register_blueprint(reservations, url_prefix='/api/reservations')
+app.register_blueprint(photos, url_prefix='/api/photos')
 db.init_app(app)
 
 

@@ -27,5 +27,4 @@ def index():
             one_date["yes_list"] = yes_list
             one_date["no_list"] = no_list
             date_list.append(one_date)
-        # print(date_list)
-        return {"dates": date_list}
+        return {"dates": date_list, "current_user": current_user.to_dict()}

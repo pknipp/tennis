@@ -6,6 +6,7 @@ import LogIn from './components/LogIn';
 import LogOut from './components/LogOut';
 import EditUser from './components/EditUser';
 import Dates from './components/Dates';
+import UploadPhoto from './components/UploadPhoto';
 import ProtectedRoute from "./components/ProtectedRoute"
 import AuthRoute from "./components/AuthRoute"
 import AuthContext from './auth';
@@ -26,6 +27,7 @@ const App = _ => {
             const response = await fetch('/restore');
             const data = await response.json();
             setCurrentUser(data.current_user);
+            console.log(data.current_user);
             setLoading(false);
         })()
     }, [])
@@ -43,6 +45,7 @@ const App = _ => {
                         <ProtectedRoute exact path="/logout" component={LogOut} currentUser={currentUser} />
                         <ProtectedRoute exact path="/edituser" component={EditUser} currentUser={currentUser} />
                         <ProtectedRoute exact path="/" component={Dates} />
+                        <ProtectedRoute exact path="/uploadphoto" component={UploadPhoto} />
                     </Switch>
                 </BrowserRouter>
             }

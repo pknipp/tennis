@@ -7,7 +7,7 @@ from sqlalchemy import or_
 users = Blueprint('users', __name__)
 
 
-@users.route('/', methods=['GET', 'POST'])
+@users.route('', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
         response = User.query.all()
@@ -54,7 +54,8 @@ def index():
 @users.route('/<id>', methods=['GET', 'PUT', 'DELETE'])
 def user_info(id):
     # print("id = ", id)
-    user = User.query.filter(User.id == int(id))[0]
+    # user = User.query.filter(User.id == int(id))[0]
+    user = User.query.get(int(id))
     userd= user.to_dict()
     if request.method == "GET":
         return userd

@@ -1,5 +1,10 @@
-.active {font-size: 1.5em}
-
+.active {font-size: 1.5em; }
+.middle {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 200px;
+  }
 .navContainer,.switch,form {display: flex}
 .navContainer {justify-content: space-evenly}
 .switch,form {

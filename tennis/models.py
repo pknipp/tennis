@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(63), nullable=False, unique=True)
     name = db.Column(db.String(22), nullable=False, unique=True)
     phone = db.Column(db.String(15), nullable=False)
+    photo_url = db.Column(db.String(255))
     is_admin = db.Column(db.Boolean, nullable=False)
     hashed_password = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False)
@@ -43,6 +44,7 @@ class User(db.Model, UserMixin):
             "email": self.email,
             "name": self.name,
             "phone": self.phone,
+            "photo_url": self.photo_url,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "is_admin": self.is_admin,
