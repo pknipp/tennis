@@ -8,6 +8,5 @@ include "isPrivate" column in User model (and use this to hide phone numbers on 
 use localstorage to store password?
 change photo_url to use user's id#?
 seed user photos
-why doesn't cartoon get used on heroku?
 User faker to seed phone numbers (and first names, if these can be generated uniquely?)
 Seed the User's table w/famous tennis players.

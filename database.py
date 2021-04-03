@@ -24,19 +24,18 @@ with app.app_context():
     db.session.commit()
 
 users = [
-    ("demo@aol.com", "Demo User", False, "(123)456-7890"),
-    ("peteraknipp@gmail.com", "Pete K", True, "(914)462-7916"),
-    ("adoe@aol.com", "Andy D", False, "(834)462-3487"),
-    ("bdoe@aol.com", "Bobby D", False, "(834)462-3487"),
-    ("cdoe@aol.com", "Charlie D", False, "(834)462-3487"),
-    ("ddoe@aol.com", "Danny D", False, "(834)462-3487"),
-    ("edoe@aol.com", "Eddie D", False, "(834)462-3487"),
-    ("fdoe@aol.com", "Freddy D", False, "(834)462-3487"),
-    ("gdoe@aol.com", "George D", False, "(834)462-3487"),
-    ("hdoe@aol.com", "Heidi D", False, "(834)462-3487"),
-    ("idoe@aol.com", "Ian D", False, "(834)462-3487"),
-    ("jdoe@aol.com", "Jenny D", False, "(834)462-3487"),
-    ("kdoe@aol.com", "Kiki D", False, "(834)462-3487"),
+    ('demo@aol.com','Demo User','(123)456-7890',False,None),
+    ('peteraknipp@gmail.com','Pete K','(914)462-7916',True,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30756082021.png'),
+    ('adoe@aol.com','Andy D','(834)462-3487',False,None),
+    ('bdoe@aol.com','Bobby D','(834)462-3487',False,None),
+    ('novak@aol.com','Novak','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30757432021.png'),
+    ('roger@aol.com','Roger F','unlisted',False,None),
+    ('rafa@aol.com','Rafa N','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30759302021.png'),
+    ('chrissie@aol.com','Chrissie E','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30804162021.png'),
+    ('arthur@aol.com','Arthur A','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30805142021.png'),
+    ('naomi@aol.com','Naomi O','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30806472021.png'),
+    ('jimmy@aol.com','Jimmy C','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30807422021.png'),
+    ('billiejean@aol.com','Billie Jean','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30808342021.png'),
 ]
 
 with app.app_context():
@@ -45,8 +44,9 @@ with app.app_context():
             email=user[0],
             name=user[1],
             password="password",
-            is_admin=user[2],
-            phone=user[3],
+            is_admin=user[3],
+            phone=user[2],
+            photo_url=user[4],
             created_at=datetime.now(),
             updated_at=datetime.now(),
         ))
