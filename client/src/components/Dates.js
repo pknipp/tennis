@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 // import { NavLink } from 'react-router-dom';
 import AuthContext from '../auth';
-import Date from './Date';
+import SingleDate from './SingleDate';
 
 const Dates = () => {
     const [dates, setDates] = useState([]);
+    const [today, setToday] = useState(null);
     const [rerender, setRerender]=useState(false);
     const [bubble, setBubble] = useState(false);
     const [, setMessages]=useState([]);
@@ -18,7 +19,7 @@ const Dates = () => {
                 const data = await res.json();
                 // console.log(data.dates);
                 setDates(data.dates);
-                console.log(data.dates[0].date);
+                setToday(new Date(data.today));
                 setCurrentUser(data.current_user);
                 let bubble = data.dates.reduce((bubble, date) => {
                     return bubble || (date.yes_list.length % 2)
@@ -62,8 +63,8 @@ const Dates = () => {
                 </div>
             }
             <ul>
-                {dates.map(date => (
-                    <Date
+                {dates.filter(date => new Date(date.date) >= today).map(date => (
+                    <SingleDate
                         key={date.id}
                         dateId={date.id}
                         date={date.date.split(" ").slice(0, 4).join(" ")}

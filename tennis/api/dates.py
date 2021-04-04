@@ -9,9 +9,9 @@ dates = Blueprint('dates', __name__)
 def index():
     if request.method == "GET":
         date_list = list()
-        # today = date.today()
+        today = date.today()
         # dates = Date.query.filter(Date.date >= date.today())
-        dates = Date.query
+        dates = Date.query.all()
         for one_date in dates:
             reservations = Reservation.query.filter(Reservation.date_id == one_date.id).order_by(Reservation.updated_at.desc())
             one_date = one_date.to_dict()
@@ -28,4 +28,4 @@ def index():
             one_date["yes_list"] = yes_list
             one_date["no_list"] = no_list
             date_list.append(one_date)
-        return {"dates": date_list, "current_user": current_user.to_dict()}
+        return {"dates": date_list, "today": today, "current_user": current_user.to_dict()}
