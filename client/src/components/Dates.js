@@ -5,6 +5,8 @@ import SingleDate from './SingleDate';
 
 const Dates = () => {
     const [dates, setDates] = useState([]);
+    const [iDateInitial, setIDateInitial] = useState(null);
+    const [iDateFinal, setIDateFinal] = useState(null);
     const [today, setToday] = useState(null);
     const [rerender, setRerender]=useState(false);
     const [bubble, setBubble] = useState(false);
@@ -62,6 +64,24 @@ const Dates = () => {
                     <sup>#</sup>This person/people is/are either "on the bubble" (if they were the last one to make a reservation) or "on the hook" (if they were the last one to cancel a reservation) because of the odd number of people presently in the lineup.
                 </div>
             }
+            <h3>Date range:</h3>
+            Initial date:
+            <select value={iDateInitial} onChange={e => setIDateInitial(Number(e.target.value))} >
+                {dates.map((date, i) => (
+                    <option key={date.id} value={i}>
+                        {date.date}
+                    </option>
+                ))}
+            </select>
+            Final date:
+            <select value={iDateFinal} onChange={e => setIDateFinal(Number(e.target.value))} >
+                {dates.map((date, i) => (
+                    <option key={date.id} value={i}>
+                        {date.date}
+                    </option>
+                ))}
+            </select>
+            <h3>Future dates:</h3>
             <ul>
                 {dates.filter(date => new Date(date.date) >= today).map(date => (
                     <SingleDate
