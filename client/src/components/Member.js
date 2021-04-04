@@ -8,7 +8,7 @@ const Member = ({user}) => {
     <tr>
         <td>{user.name}</td><td>{user.email}</td><td>{user.phone}</td>
         <td>
-            {(!user.photo_url && currentUser.id === user.id) ? "Submit photo" :
+            {(!user.photo_url && currentUser.id === user.id) ? `Submit photo` :
                 <img className="small" src={user.photo_url || CARTOON} />
             }
         </td>
