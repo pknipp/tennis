@@ -10,7 +10,7 @@ seed(1)
 fake = Faker()
 load_dotenv()
 
-dates = [date(2021, 3, 27), date(2021, 3, 28), date(2021, 4, 3), date(2021, 4, 4)]
+dates = [date(2021, 3, 27), date(2021, 3, 28), date(2021, 4, 3), date(2021, 4, 4), date(2021, 4, 10), date(2021, 4, 11)]
 
 with app.app_context():
     db.drop_all()
@@ -26,8 +26,12 @@ with app.app_context():
 users = [
     ('demo@aol.com','Demo User','(123)456-7890',False,None),
     ('peteraknipp@gmail.com','Pete K','(914)462-7916',True,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30756082021.png'),
-    ('adoe@aol.com','Andy D','(834)462-3487',False,None),
-    ('bdoe@aol.com','Bobby D','(834)462-3487',False,None),
+    ('adoe@aol.com','Andy D','(824)462-3487',False,None),
+    ('bdoe@aol.com','Bobby D','(534)462-3487',False,None),
+    ('cdoe@aol.com','Carl D','(837)362-3487',False,None),
+    ('ddoe@aol.com','Doug D','(833)562-2367',False,None),
+    ('edoe@aol.com','Ella D','(234)762-3235',False,None),
+    ('fdoe@aol.com','Fran D','(734)332-8357',False,None),
     ('novak@aol.com','Novak','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30757432021.png'),
     ('roger@aol.com','Roger F','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr31444062021.png'),
     ('rafa@aol.com','Rafa N','unlisted',False,'https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30759302021.png'),

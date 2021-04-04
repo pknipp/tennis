@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-// import { NavLink } from 'react-router-dom';
 import AuthContext from '../auth';
 import SingleDate from './SingleDate';
 
@@ -17,14 +16,13 @@ const Dates = () => {
             const res = await fetch(`/api/dates`)
             if (res.ok) {
                 const data = await res.json();
-                // console.log(data.dates);
                 setDates(data.dates);
                 setToday(new Date(data.today));
                 setCurrentUser(data.current_user);
-                let bubble = data.dates.reduce((bubble, date) => {
-                    return bubble || (date.yes_list.length % 2)
-                }, false);
-                setBubble(bubble);
+                setBubble(data.dates.reduce((bubble, date) => (
+                    // "bubble/hook" exists iff there is an odd number of players on a date
+                    bubble || (date.yes_list.length % 2)
+                ), false));
             }
         } catch (err) {
             console.error(err)
@@ -50,12 +48,14 @@ const Dates = () => {
 
     return (
         <>
-            <h3>{currentUser.photo_url ? null : 'Please go to "Account Details" and upload a headshot.'} </h3>
+            <h3>{currentUser.photo_url ? null :
+                'Please go to "Account Details" and upload a headshot.'}
+            </h3>
             <div>
                 If your name appears on the preference-list for any date below, you may toggle your preference for that date by clicking <button disabled>undo</button> next to your name.
             </div>
             <div>
-                <sup>*</sup>This indicates people willing to play singles on  the particular date.  Click    <button disabled>toggle *</button> below if you would like to change your preference for this.
+                <sup>*</sup>This indicates people willing to play singles on  the particular date.  Click <button disabled>toggle *</button> below if you would like to change your preference for this.
             </div>
             {!bubble ? null :
                 <div>

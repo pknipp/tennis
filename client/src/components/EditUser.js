@@ -94,7 +94,7 @@ const EditUser = props => {
             </form>
             {!url ? null : <img className="middle" src={url} alt={url ? currentUser.name : "nothing"} /> }
             <form onSubmit={submitPhoto}>
-                <h3>{url ? "Would you like to update your photo?" : "Please upload a headshot."}</h3>
+                <h2>{url ? "Would you like to update your photo?" : "Please upload a headshot below."}</h2>
                 <div>
                     <input type="file" accept="image/*" onChange={e => setImage(e.target.files[0])}/>
                     {!image ? null : <button type="submit">Submit</button>}
@@ -103,7 +103,7 @@ const EditUser = props => {
             </form>
             <form onSubmit={deleteUser}>
                 {messages.map(err => <li key={err}>{err}</li>)}
-                <h2>Would you like to delete your account?</h2>
+                <h3>Would you like to delete your account?</h3>
                 <button type="submit">Delete Account</button>
             </form>
         </>
