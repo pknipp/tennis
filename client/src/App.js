@@ -46,6 +46,11 @@ const App = _ => {
                         <ProtectedRoute exact path="/" component={Dates} />
                         <ProtectedRoute exact path="/members" component={Members} />
                     </Switch>
+                    <span>
+                        <br/><br/>
+                        creator:
+                        <a href="https://pknipp.github.io/" target="_blank">Peter Knipp</a>
+                    </span>
                 </BrowserRouter>
             }
         </AuthContext.Provider>

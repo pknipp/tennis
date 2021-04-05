@@ -9,4 +9,3 @@ use localstorage to store password?
 change photo_url to use user's id#?
 User faker to seed phone numbers (and first names, if these can be generated uniquely?)
 allow the user to toggle the display of availabilities for past dates
-temporarily delete proPics folder, to make it disappear from GH (and master)?
