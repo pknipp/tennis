@@ -11,21 +11,15 @@ const SignUp = props => {
     const { fetchWithCSRF, setCurrentUser } = useContext(AuthContext);
     const [errors, setErrors] = useState([]);
 
-    const submitForm = e => {
+    const submitForm = async e => {
         e.preventDefault();
-        (async _ => {
-            const response = await fetchWithCSRF(`/api/users`, {
-                method: 'POST', headers: { "Content-Type": "application/json" },
-                credentials: 'include', body: JSON.stringify({ email, password, password2, name, phone })
-            });
-            const responseData = await response.json();
-            if (!response.ok) {
-                setErrors(responseData.errors);
-            } else {
-                setErrors([]);
-                setCurrentUser(responseData.current_user);
-            }
-        })();
+        const response = await fetchWithCSRF(`/api/users`, {
+            method: 'POST', headers: { "Content-Type": "application/json" },
+            credentials: 'include', body: JSON.stringify({ email, password, password2, name,phone })
+        });
+        const data = await response.json();
+        setErrors(data.errors || []);
+        if (response.ok) setCurrentUser(data.current_user);
     }
 
     return (

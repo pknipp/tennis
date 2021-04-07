@@ -33,17 +33,15 @@ const Dates = () => {
         getDates();
     }, [rerender])
 
-    const reservation = (dateId, toggleSingles) => {
-        (async _ => {
-            const response = await fetchWithCSRF(`/api/reservations/${dateId}`, {
-                method: 'PUT', headers: { "Content-Type": "application/json" },
-                credentials: 'include', body: JSON.stringify({ toggleSingles })
-            });
-            const responseData = await response.json();
-            if (!response.ok) setErrors(responseData.errors);
-            if (responseData.messages) setMessages(responseData.messages)
-            setRerender(!rerender);
-        })();
+    const reservation = async (dateId, toggleSingles) => {
+        const response = await fetchWithCSRF(`/api/reservations/${dateId}`, {
+            method: 'PUT', headers: { "Content-Type": "application/json" },
+            credentials: 'include', body: JSON.stringify({ toggleSingles })
+        });
+        const data = await response.json();
+        setErrors(data.errors || []);
+        setMessages(data.messages || []);
+        setRerender(!rerender);
     }
 
     return (

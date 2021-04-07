@@ -11,22 +11,16 @@ const Members = () => {
     const [, setMessages] = useState([]);
     // let history = useHistory();
 
-    const getUsers = _ => {
-        (async _ => {
-            const data = await fetchWithCSRF(`/api/users`);
-            const res = await data.json();
-            // console.log(responseData);
-            if (!data.ok) {
-                setErrors(data.errors);
-            } else if (data.messages) {
-                setMessages(data.messages)
-            } else {
-                setUsers(res.users);
-                // history.push('/')
-            }
-        })();
+    const getUsers = async () => {
+        const response = await fetchWithCSRF(`/api/users`);
+        const data = await response.json();
+        setErrors(data.errors || []);
+        setMessages(response.messages || [])
+        if (response.ok) setUsers(data.users);
     }
-    useEffect(getUsers, []);
+    useEffect(() => {
+        getUsers();
+    }, []);
 
     return (
         <div className="tableContainer">

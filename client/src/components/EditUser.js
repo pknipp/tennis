@@ -17,42 +17,31 @@ const EditUser = props => {
     const [messages, setMessages] = useState([]);
     let history = useHistory();
 
-    const submitForm = e => {
+    const submitForm = async e => {
         e.preventDefault();
-        (async _ => {
-            const response = await fetchWithCSRF(`/api/users/${props.currentUser.id}`, {
-                method: 'PUT', headers: {"Content-Type": "application/json"}, credentials: 'include',
-                body: JSON.stringify({ email, name, phone, password, password2 })
-            });
-            const responseData = await response.json();
-            // console.log(responseData);
-            if (!response.ok) {
-                setErrors(responseData.errors);
-            } else if (responseData.messages) {
-                setMessages(responseData.messages)
-            } else {
-                setCurrentUser(responseData.current_user);
-                history.push('/')
-            }
-        })();
+        const response = await fetchWithCSRF(`/api/users/${props.currentUser.id}`, {
+            method: 'PUT', headers: {"Content-Type": "application/json"}, credentials:'include',
+            body: JSON.stringify({ email, name, phone, password, password2 })
+        });
+        const data = await response.json();
+        setErrors(data.errors || []);
+        setMessages(data.messages || []);
+        if (response.ok) {
+            setCurrentUser(data.current_user);
+            history.push('/');
+        }
     }
 
-    const deleteUser = e => {
+    const deleteUser = async e => {
         e.preventDefault();
-        (async _ => {
-            const response = await fetchWithCSRF(`/api/users/${props.currentUser.id}`, {
-                method: 'DELETE', headers: {"Content-Type": "application/json"},
-                credentials: 'include', body: JSON.stringify({})
-            });
-            const responseData = await response.json();
-            if (!response.ok) {
-                setErrors(responseData.errors);
-            } else if (responseData.messages) {
-                setMessages(responseData.messages)
-            } else {
-                setCurrentUser(null);
-            }
-        })();
+        const response = await fetchWithCSRF(`/api/users/${props.currentUser.id}`, {
+            method: 'DELETE', headers: {"Content-Type": "application/json"},
+            credentials: 'include', body: JSON.stringify({})
+        });
+        const data = await response.json();
+        setErrors(data.errors || []);
+        setMessages(data.messages || []);
+        if (response.ok) setCurrentUser(null);
     }
 
     const submitPhoto = async e => {
@@ -60,10 +49,10 @@ const EditUser = props => {
         const formData = new FormData();
         formData.append("image", image);
         setImageLoading(true);
-        const data = await fetch('/api/photos', {method: "POST", body: formData});
+        const response = await fetch('/api/photos', {method: "POST", body: formData});
         setImageLoading(false);
         setImage(null);
-        return (data.ok) ? setUrl((await data.json()).photo_url) : console.log("error");
+        return (response.ok) ? setUrl((await response.json()).photo_url) : console.log("error");
     }
 
     return (

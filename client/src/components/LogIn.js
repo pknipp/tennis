@@ -9,21 +9,18 @@ const LogIn = props => {
     const { fetchWithCSRF, setCurrentUser } = useContext(AuthContext);
     let history = useHistory();
 
-    const submitForm = e => {
+    const submitForm = async e => {
         e.preventDefault();
-        (async _ => {
-            const response = await fetchWithCSRF(`/api/session/`, {
-                method: 'PUT', headers: {"Content-Type": "application/json"},
-                credentials: 'include', body: JSON.stringify({email, password})
-            });
-            const responseData = await response.json();
-            if (!response.ok) {
-                setErrors(responseData.errors);
-            } else {
-                setCurrentUser(responseData.current_user);
-                history.push('/')
-            }
-        })();
+        const response = await fetchWithCSRF(`/api/session/`, {
+            method: 'PUT', headers: {"Content-Type": "application/json"},
+            credentials: 'include', body: JSON.stringify({email, password})
+        });
+        const data = await response.json();
+        setErrors(data.errors || []);
+        if (response.ok) {
+            setCurrentUser(data.current_user);
+            history.push('/')
+        }
     }
     return (
         <form onSubmit={submitForm}>

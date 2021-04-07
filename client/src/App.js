@@ -22,7 +22,6 @@ const App = _ => {
     };
 
     useEffect(() => {
-        // console.log("ue in App.js");
         (async () => {
             const response = await fetch('/restore');
             const data = await response.json();
