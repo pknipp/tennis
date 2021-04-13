@@ -5,6 +5,7 @@ from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager, \
     current_user, login_user, logout_user, login_required
 from flask_migrate import Migrate
+from random import random
 from tennis.models import db, User, Date, Reservation
 from tennis.api.session import session
 from tennis.api.users import users
@@ -61,27 +62,31 @@ def react_root(path):
 def restore():
     dates = Date.query.all()
     users = User.query.all()
-    date0 = dates[len(dates) - 2].date
-    date1 = dates[len(dates) - 1].date
+    date0 = dates[len(dates) - 2]
+    date1 = dates[len(dates) - 1]
     today = date.today()
-    if date1 < today:
+    if date1.date < today:
         now = datetime.now()
-        db.session.add(Date(date=date0 + timedelta(days=7), created_at=now, updated_at=now))
-        db.session.add(Date(date=date1 + timedelta(days=7), created_at=now, updated_at=now))
+        db.session.add(Date(date=date0.date + timedelta(days=7), created_at=now, updated_at=now))
+        db.session.add(Date(date=date1.date + timedelta(days=7), created_at=now, updated_at=now))
         db.session.commit()
 
         prob_respond = 0.7
         prob_cancel = 0.3
         prob_singles = 0.4
+        dates = Date.query.all()
+        new_dates = [dates[len(dates) - 2], dates[len(dates) - 1]]
 
+        users = User.query.all()
+        print(len(users))
         for i in range(len(users)):
-            for j in range(2):
+            for new_date in new_dates:
                 if random() < prob_respond:
                     wants_to_play = False if random() < prob_cancel else True
                     will_play_singles = True if random() < prob_singles else False
                     db.session.add(Reservation(
                         user_id=i + 1,
-                        date_id=len(dates) + j + 1,
+                        date_id=new_date.id,
                         wants_to_play=wants_to_play,
                         will_play_singles=will_play_singles,
                         created_at=datetime.now(),
