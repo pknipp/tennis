@@ -11,7 +11,7 @@ const LogIn = props => {
 
     const submitForm = async e => {
         e.preventDefault();
-        const response = await fetchWithCSRF(`/api/session/`, {
+        const response = await fetchWithCSRF(`/api/session`, {
             method: 'PUT', headers: {"Content-Type": "application/json"},
             credentials: 'include', body: JSON.stringify({email, password})
         });

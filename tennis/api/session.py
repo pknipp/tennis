@@ -3,12 +3,15 @@ from tennis.models import User, db
 from datetime import datetime
 from flask_login import LoginManager, login_required, logout_user, login_user, current_user
 from sqlalchemy import or_
+# from flask_cors import cross_origin
 
 session = Blueprint('session', __name__)
 
 
-@session.route('/', methods=['PUT', 'DELETE'])
+@session.route('', methods=['PUT', 'DELETE'])
+# @cross_origin()
 def index():
+    # print("top of session put route")
     if request.method == 'PUT':
         if not request.is_json:
             return jsonify({"msg": "Missing JSON in request"}), 400
