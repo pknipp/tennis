@@ -16,25 +16,25 @@ const LogIn = props => {
     // let history = useHistory();
 
     const submitForm = async values => {
-        console.log("line 13, top of submitForm")
+        // console.log("line 13, top of submitForm")
         // e.preventDefault();
-        console.log("line 15, after e.preventDefault()")
+        // console.log("line 15, after e.preventDefault()")
         const response = await fetchWithCSRF(`http://127.0.0.1:5000/api/session`, {
             method: 'PUT', headers: {"Content-Type": "application/json"},
             credentials: 'include', body: JSON.stringify({email: values.email, password: values.password})
         });
-        console.log("line 20")
-        console.log("response.ok is ", response.ok ? "true" : "false")
+        // console.log("line 20")
+        // console.log("response.ok is ", response.ok ? "true" : "false")
         const data = await response.json();
-        console.log("line 23")
+        // console.log("line 23")
         setErrors(data.errors || []);
         if (response.ok) {
-            console.log("response.ok was truthy");
+            // console.log("response.ok was truthy");
             // console.log(data.current_user.email);
             setCurrentUser(data.current_user);
             // history.push('/')
         }
-        if (!response.ok) console.log("!response.ok was falsy")
+        // if (!response.ok) console.log("!response.ok was falsy")
     }
     return (
         <View style={{flex: 1, justifyContent: "center"}}>
