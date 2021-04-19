@@ -21,11 +21,14 @@ const LogIn = ({ setShowOuterModal }) => {
 
     const submitForm = async values => {
         // e.preventDefault();
+        console.log("line 24, before fetch");
         const response = await fetchWithCSRF(`http://127.0.0.1:5000/api/session`, {
             method: 'PUT', headers: {"Content-Type": "application/json"},
             credentials: 'include', body: JSON.stringify({email: values.email, password: values.password})
         });
+        console.log("line 29, after fetch, where response.ok = ", response.ok ? "ok" : "not ok");
         const data = await response.json();
+        console.log("line 31, after response.json()")
         setErrors(data.errors || []);
         if (response.ok) {
             setCurrentUser(data.current_user);
