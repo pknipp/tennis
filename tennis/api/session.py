@@ -11,7 +11,7 @@ session = Blueprint('session', __name__)
 @session.route('', methods=['PUT', 'DELETE'])
 # @cross_origin()
 def index():
-    # print("top of session put route")
+    print("top of session put route")
     if request.method == 'PUT':
         if not request.is_json:
             return jsonify({"msg": "Missing JSON in request"}), 400
