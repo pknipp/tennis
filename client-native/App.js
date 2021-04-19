@@ -7,7 +7,7 @@ import Login from './components/Login';
 import MyModal from './components/MyModal';
 
 export default function App() {
-  const [showLogin, setShowLogin] = useState(false);
+  const [showInnerModal, setShowInnerModal] = useState(false);
   const [fetchWithCSRF] = useState(() => fetch);
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -21,12 +21,12 @@ export default function App() {
     <AuthContext.Provider value={authContextValue}>
       <View style={styles.welcome}>
         <Text>Welcome to the tennis scheduler.</Text>
-        <Button title="Login" onPress={() => setShowLogin(true)} />
+        <Button title="Login" onPress={() => setShowInnerModal(true)} />
         <Button title="Signup" />
         <StatusBar style="auto" />
       </View>
-      <MyModal visible={showLogin}>
-        <Login />
+      <MyModal visible={showInnerModal}>
+        <Login setShowOuterModal={setShowInnerModal} />
       </MyModal>
     </AuthContext.Provider>
   );

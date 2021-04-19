@@ -3,39 +3,36 @@ import { View, Text, TextInput, Button, Form } from 'react-native';
 // import { useHistory } from 'react-router-dom'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import AuthContext from '../auth'
+
+import AuthContext from '../auth';
+import MyModal from './MyModal';
+import Success from './Success';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().required().email().label("Email"),
     password: Yup.string().required().min(4).label("Password")
 });
 
-const LogIn = props => {
+const LogIn = ({ setShowOuterModal }) => {
     const [errors, setErrors] = useState([]);
     const { fetchWithCSRF, currentUser, setCurrentUser } = useContext(AuthContext);
+    const [showInnerModal, setShowInnerModal] = useState(false);
     // let history = useHistory();
 
     const submitForm = async values => {
-        // console.log("line 13, top of submitForm")
         // e.preventDefault();
-        // console.log("line 15, after e.preventDefault()")
         const response = await fetchWithCSRF(`http://127.0.0.1:5000/api/session`, {
             method: 'PUT', headers: {"Content-Type": "application/json"},
             credentials: 'include', body: JSON.stringify({email: values.email, password: values.password})
         });
-        // console.log("line 20")
-        // console.log("response.ok is ", response.ok ? "true" : "false")
         const data = await response.json();
-        // console.log("line 23")
         setErrors(data.errors || []);
         if (response.ok) {
-            // console.log("response.ok was truthy");
-            // console.log(data.current_user.email);
             setCurrentUser(data.current_user);
-            // history.push('/')
+            setShowInnerModal(true);
         }
-        // if (!response.ok) console.log("!response.ok was falsy")
     }
+
     return (
         <View style={{flex: 1, justifyContent: "center"}}>
         <Formik
@@ -62,6 +59,9 @@ const LogIn = props => {
             )}
         </Formik>
         <Text>{currentUser ? currentUser.email : ""}</Text>
+        <MyModal visible={showInnerModal}>
+            <Success setShowOuterModal={setShowInnerModal} />
+        </MyModal>
         </View>
     );
 };
