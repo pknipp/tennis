@@ -47,7 +47,7 @@ const LogIn = ({ setShowOuterModal }) => {
                   validationSchema={validationSchema}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
-                        <SafeAreaView style={{flex: 1, justifyContent: "space-evenly", alignItems: "center"}}>
+                        <SafeAreaView style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
                             <MyTextInput
                                 onChangeText={handleChange("email")}
                                 autoCapitalize="none"
