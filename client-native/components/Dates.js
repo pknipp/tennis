@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Text } from 'react-native';
+import { Text, SafeAreaView } from 'react-native';
 
 import AuthContext from '../auth';
 import SingleDate from './SingleDate';
@@ -47,7 +47,7 @@ const Dates = () => {
     }
 
     return (
-        <>
+        <SafeAreaView>
             <Text>{currentUser.photo_url ? null :
                 'Please go to "Account Details" and upload a headshot.'}
             </Text>
@@ -75,7 +75,7 @@ const Dates = () => {
                     />
                 ))}
             {/* </ul> */}
-        </>
+        </SafeAreaView>
     )
 }
 

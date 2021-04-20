@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { Text, View } from 'react-native';
 
 import AuthContext from '../auth';
-// import Single from './Single';
+import Single from './Single';
 
 const SingleDate = ({ dateId, date, yesList, noList, reservation }) => {
     // const [rerender, setRerender]=useState(false);
@@ -31,24 +31,23 @@ const SingleDate = ({ dateId, date, yesList, noList, reservation }) => {
             <View className="left-list">
                 <Text>People who want to play:</Text>
                     {yesList.map((player, index) => (
-                        <Text>{player.name}</Text>
-                        // <Single key={`${dateId}y${player.id}`}
-                        //     player={player}
-                        //     reservation={reservation}
-                        //     singles={player.will_play_singles}
-                        //     scheduled={true}
-                        //     bubble={(yesList.length % 2) && index === yesList.length- 1}
-                        // />
+                        <Single key={`${dateId}y${player.id}`}
+                            player={player}
+                            reservation={reservation}
+                            singles={player.will_play_singles}
+                            scheduled={true}
+                            bubble={(yesList.length % 2) && index === yesList.length- 1}
+                        />
                     ))}
             </View>
             <View>
                 <Text>People who've cancelled their reservation:</Text>
                     {noList.map((player, index) => (
-                        <Text>{player.name}</Text>
-                        // <Single
-                        //     key={`${dateId}n${player.id}`} player={player} reservation={reservation}
-                        //     bubble={(yesList.length % 2) && !index}
-                        // />
+                        // <Text>{player.name}</Text>
+                        <Single
+                            key={`${dateId}n${player.id}`} player={player} reservation={reservation}
+                            bubble={(yesList.length % 2) && !index}
+                        />
                     ))}
             </View>
             </>

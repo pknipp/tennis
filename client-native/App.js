@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Modal } from 'react-native';
+import { StyleSheet, Text, View, Button, Modal, SafeAreaView } from 'react-native';
 
 import AuthContext from './auth';
 import Login from './components/Login';
@@ -19,12 +19,12 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={authContextValue}>
-      <View style={styles.welcome}>
-        <Text>Welcome to the tennis scheduler.</Text>
+      <SafeAreaView style={styles.welcome}>
+        <Text>Welcome to our tennis group's scheduler.</Text>
         <Button title="Login" onPress={() => setShowInnerModal(true)} />
         <Button title="Signup" />
         <StatusBar style="auto" />
-      </View>
+      </SafeAreaView>
       <MyModal visible={showInnerModal}>
         <Login setShowOuterModal={setShowInnerModal} />
       </MyModal>
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-evenly',
   },
   modal: {
     flex: 1,
