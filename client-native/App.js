@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, Button, Modal, SafeAreaView } from 'react-nativ
 import AuthContext from './auth';
 import Login from './components/Login';
 import MyModal from './components/MyModal';
+import Announcements from './components/Announcements';
 
 export default function App() {
   const [showInnerModal, setShowInnerModal] = useState(false);
@@ -14,7 +15,8 @@ export default function App() {
   const authContextValue = {
     fetchWithCSRF,
     currentUser,
-    setCurrentUser
+    setCurrentUser,
+    Announcements
   };
 
   return (

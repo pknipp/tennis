@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import SignUp from './components/SignUp';
-import LogIn from './components/LogIn';
+import Login from './components/Login';
 import LogOut from './components/LogOut';
 import EditUser from './components/EditUser';
 import Dates from './components/Dates';
@@ -10,6 +10,7 @@ import Members from './components/Members';
 import ProtectedRoute from "./components/ProtectedRoute"
 import AuthRoute from "./components/AuthRoute"
 import AuthContext from './auth';
+import Announcements from './components/Announcements';
 
 const App = _ => {
     const [fetchWithCSRF] = useState(() => fetch);
@@ -18,7 +19,8 @@ const App = _ => {
     const authContextValue = {
         fetchWithCSRF,
         currentUser,
-        setCurrentUser
+        setCurrentUser,
+        Announcements,
     };
 
     useEffect(() => {

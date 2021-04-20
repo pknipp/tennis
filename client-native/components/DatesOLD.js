@@ -4,14 +4,14 @@ import { Text, SafeAreaView } from 'react-native';
 import AuthContext from '../auth';
 import SingleDate from './SingleDate';
 
-const Dates = setShowOuterModal => {
+const Dates = () => {
     const [dates, setDates] = useState([]);
     const [today, setToday] = useState(null);
     const [rerender, setRerender]=useState(false);
     const [bubble, setBubble] = useState(false);
     const [, setMessages]=useState([]);
     const [, setErrors]   = useState([]);
-    const { currentUser, setCurrentUser, fetchWithCSRF, Announcements } = useContext(AuthContext)
+    const { currentUser, setCurrentUser, fetchWithCSRF } = useContext(AuthContext)
 
     const getDates = async () => {
         try {
@@ -48,10 +48,9 @@ const Dates = setShowOuterModal => {
 
     return (
         <SafeAreaView>
-            <Announcements currentUser={currentUser} />
-            {/* <Text>{currentUser.photo_url ? null :
+            <Text>{currentUser.photo_url ? null :
                 'Please go to "Account Details" and upload a headshot.'}
-            </Text> */}
+            </Text>
             <Text>
                 If your name appears on the preference-list for any date below, you may toggle your preference for that date by clicking "undo" next to your name.
             </Text>

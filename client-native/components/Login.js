@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import AuthContext from '../auth';
 import MyModal from './MyModal';
 import MyTextInput from './MyTextInput';
-import Dates from './Dates';
+import Home from './Home';
 // import Success from './Success';
 
 const validationSchema = Yup.object().shape({
@@ -16,9 +16,9 @@ const validationSchema = Yup.object().shape({
     password: Yup.string().required().min(4).label("Password")
 });
 
-const LogIn = ({ setShowOuterModal }) => {
+const Login = ({ setShowOuterModal }) => {
     const [errors, setErrors] = useState([]);
-    const { fetchWithCSRF, currentUser, setCurrentUser } = useContext(AuthContext);
+    const { fetchWithCSRF, currentUser, setCurrentUser, Announcements } = useContext(AuthContext);
     const [showInnerModal, setShowInnerModal] = useState(false);
 
     const submitForm = async values => {
@@ -74,12 +74,12 @@ const LogIn = ({ setShowOuterModal }) => {
                         </SafeAreaView>
                     )}
                 </Formik>
-                <Text>{currentUser ? currentUser.email : ""}</Text>
+                {/* <Text>{currentUser ? currentUser.email : ""}</Text> */}
                 <MyModal visible={showInnerModal}>
-                    <Dates />
+                    <Home setShowOuterModal={setShowInnerModal} />
                 </MyModal>
             </>
         </SafeAreaView>
     );
 };
-export default LogIn;
+export default Login;
