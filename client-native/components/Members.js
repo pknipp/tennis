@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Text, FlatList, SafeAreaView } from 'react-native';
-// import { List, ListItem } from 'react-native-elements';
+import { ListItem, Avatar } from 'react-native-elements';
 // import { useHistory } from 'react-router-dom';
 import AuthContext from '../auth';
 // import Member from './Member';
+const CARTOON = `https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30643252021.png`
 
 
 const Members = ({ setShowOuterModal }) => {
@@ -11,7 +12,6 @@ const Members = ({ setShowOuterModal }) => {
     const [users, setUsers] = useState([]);
     const [, setErrors] = useState([]);
     const [, setMessages] = useState([]);
-    // let history = useHistory();
 
     const getUsers = async () => {
         const response = await fetchWithCSRF(`http://127.0.0.1:5000/api/users`);
@@ -24,15 +24,24 @@ const Members = ({ setShowOuterModal }) => {
         getUsers();
     }, []);
 
-    // return users.map(user => (<Text key={user.id}>{user.name}</Text>));
+    const renderItem = ({ item }) => (
+      <ListItem bottomDivider>
+        <Avatar rounded source={{uri: item.photo_url || CARTOON}} />
+        <ListItem.Content>
+          <ListItem.Title>{item.name}</ListItem.Title>
+          <ListItem.Subtitle>{item.email}</ListItem.Subtitle>
+          <ListItem.Subtitle>{item.phone}</ListItem.Subtitle>
+        </ListItem.Content>
+        {/* <ListItem.Chevron /> */}
+      </ListItem>
+    );
+
     return (
         <SafeAreaView>
         <FlatList
             data={users}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-                <Text>{item.name}</Text>
-            )}
+            keyExtractor={item => item.id.toString()}
+            renderItem={renderItem}r
         />
         </SafeAreaView>
     )
