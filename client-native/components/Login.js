@@ -17,7 +17,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const Login = ({ setShowOuterModal }) => {
-    const [errors, setErrors] = useState([]);
+    const [loginErrors, setLoginErrors] = useState([]);
     const { fetchWithCSRF, currentUser, setCurrentUser, Announcements } = useContext(AuthContext);
     const [showInnerModal, setShowInnerModal] = useState(false);
 
@@ -28,8 +28,10 @@ const Login = ({ setShowOuterModal }) => {
                 credentials: 'include', body: JSON.stringify({email: values.email, password: values.password})
             });
             const data = await response.json();
-            setErrors(data.errors || []);
+            setLoginErrors(data.errors || []);
+            console.log(data.errors);
             if (response.ok) {
+                console.log(data.current_user);
                 setCurrentUser(data.current_user);
                 setShowInnerModal(true);
             }
@@ -71,10 +73,10 @@ const Login = ({ setShowOuterModal }) => {
                             />
                             <Text style={{color: 'red'}}>{errors.password}</Text>
                             <Button onPress={handleSubmit} title={"Login"} />
+                            <Text style={{color: "red"}}>{loginErrors[0]}.</Text>
                         </SafeAreaView>
                     )}
                 </Formik>
-                {/* <Text>{currentUser ? currentUser.email : ""}</Text> */}
                 <MyModal visible={showInnerModal}>
                     <Home setShowOuterModal={setShowInnerModal} />
                 </MyModal>

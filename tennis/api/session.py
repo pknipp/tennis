@@ -23,6 +23,7 @@ def index():
         if authenticated:
             login_user(user)
             return {"current_user": current_user.to_dict()}
+        print("invalid credentials")
         return {"errors": ["Invalid credentials"]}, 401
     if request.method == 'DELETE':
         logout_user()

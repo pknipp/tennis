@@ -12,6 +12,7 @@ const Home = ({ setShowOuterModal }) => {
     const { currentUser, Announcements } = useContext(AuthContext);
     return (
         <>
+        <Text>Hi {currentUser.name}</Text>
         <View style={{flex: 1, justifyContent: "center"}} >
             <Announcements currentUser={currentUser} />
             <Button title="Dates" onPress={() => setShowDatesModal(true)} />

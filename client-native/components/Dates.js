@@ -49,9 +49,6 @@ const Dates = setShowOuterModal => {
     return (
         <SafeAreaView>
             <Announcements currentUser={currentUser} />
-            {/* <Text>{currentUser.photo_url ? null :
-                'Please go to "Account Details" and upload a headshot.'}
-            </Text> */}
             <Text>
                 If your name appears on the preference-list for any date below, you may toggle your preference for that date by clicking "undo" next to your name.
             </Text>
