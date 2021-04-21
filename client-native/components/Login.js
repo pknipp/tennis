@@ -29,9 +29,7 @@ const Login = ({ setShowOuterModal }) => {
             });
             const data = await response.json();
             setLoginErrors(data.errors || []);
-            console.log(data.errors);
             if (response.ok) {
-                console.log(data.current_user);
                 setCurrentUser(data.current_user);
                 setShowInnerModal(true);
             }
