@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Text } from 'react-native'
+import { Text, FlatList, SafeAreaView } from 'react-native';
+// import { List, ListItem } from 'react-native-elements';
 // import { useHistory } from 'react-router-dom';
 import AuthContext from '../auth';
 // import Member from './Member';
@@ -23,7 +24,18 @@ const Members = ({ setShowOuterModal }) => {
         getUsers();
     }, []);
 
-    return users.map(user => (<Text key={user.id}>{user.name}</Text>));
+    // return users.map(user => (<Text key={user.id}>{user.name}</Text>));
+    return (
+        <SafeAreaView>
+        <FlatList
+            data={users}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => (
+                <Text>{item.name}</Text>
+            )}
+        />
+        </SafeAreaView>
+    )
 };
 
 export default Members;
