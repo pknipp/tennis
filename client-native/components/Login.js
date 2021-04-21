@@ -64,6 +64,7 @@ const Login = ({ setShowOuterModal }) => {
                                 autoCapitalize="none"
                                 value={values.password}
                                 onBlur={handleBlur("password")}
+                                keyboardType="visible-password"
                                 textContentType="password"
                                 placeholder="Password"
                                 secureTextEntry

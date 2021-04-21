@@ -5,7 +5,7 @@ import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 
 import AuthContext from './auth';
 import Login from './components/Login';
-// import Signup from './components/Signup';
+import Signup from './components/Signup';
 import MyModal from './components/MyModal';
 import Announcements from './components/Announcements';
 
@@ -16,7 +16,6 @@ export default function App() {
     [show[modal], setShow[modal]] = useState(false);
     return [show, setShow];
   }, [{}, {}]);
-  // const [showInnerModal, setShowInnerModal] = useState(false);
   const [fetchWithCSRF] = useState(() => fetch);
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -48,9 +47,10 @@ export default function App() {
       <MyModal visible={showModal.login}>
         <Login setShowOuterModal={setShowModal.login} />
       </MyModal>
-      {/* <MyModal visible={showModal.signup}>
+      <MyModal visible={showModal.signup}>
         <Signup setShowOuterModal={setShowModal.signup} />
-      </MyModal> */}
+      </MyModal>
+
     </AuthContext.Provider>
   );
 }
