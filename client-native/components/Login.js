@@ -38,6 +38,11 @@ const Login = ({ setShowOuterModal }) => {
         }
     }
 
+    const handleSignup = () => {
+        setShowOuterModal.login(false);
+        setShowOuterModal.signup(true);
+    }
+
     return (
         <SafeAreaView style={{flex: 1, justifyContent: "center"}}>
             <>
@@ -72,6 +77,7 @@ const Login = ({ setShowOuterModal }) => {
                             />
                             <Text style={{color: 'red'}}>{errors.password}</Text>
                             <Button onPress={handleSubmit} title={"Login"} />
+                            <Button onPress={handleSignup} title={"Switch to 'Signup'"} />
                             <Text style={{color: "red"}}>{loginErrors[0]}.</Text>
                         </SafeAreaView>
                     )}

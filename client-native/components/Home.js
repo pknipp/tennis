@@ -6,6 +6,7 @@ import MyModal from './MyModal';
 // import Success from './Success';
 import Dates from './Dates';
 import Members from './Members';
+// import Signup from './Signup';
 import AuthContext from '../auth';
 
 const modals = ["dates", "members", "accountDetails"];
@@ -44,7 +45,10 @@ const Home = ({ setShowOuterModal }) => {
                     <Text style={styles.pressText}>Members List</Text>
                 </View>
             </Pressable>
-            <Pressable onPressIn={() => setShowModal.accountDetails(true)}>
+            {/* <Pressable onPressIn={() => setShowModal.accountDetails(true)}> */}
+            <Pressable onPressIn={() => {
+                setShowOuterModal(false);
+            }}>
                 <View style={styles.pressView} >
                     <MaterialCommunityIcons name={"account"} size={20} color={"#666"} style={{marginRight: 10}} />
                     <Text style={styles.pressText}>Account Details</Text>
@@ -56,7 +60,6 @@ const Home = ({ setShowOuterModal }) => {
                     <Text style={styles.pressText}>Logout</Text>
                 </View>
             </Pressable>
-            <Button title={"Home! Close this modal."} onPress={() => setShowOuterModal(false)} />
         </View>
         <MyModal visible={showModal.dates}>
                     <Dates setShowOuterModal={setShowModal.dates} />
@@ -64,6 +67,9 @@ const Home = ({ setShowOuterModal }) => {
         <MyModal visible={showModal.members}>
                     <Members setShowOuterModal={setShowModal.members} />
         </MyModal>
+        {/* <MyModal visible={showModal.accountDetails}>
+                    <Signup setShowOuterModal={setShowModal.accountDetails} />
+        </MyModal> */}
         </>
     )
 };

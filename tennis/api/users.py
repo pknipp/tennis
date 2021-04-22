@@ -9,6 +9,7 @@ users = Blueprint('users', __name__)
 
 @users.route('', methods=['GET', 'POST'])
 def index():
+    print("top of the '' route")
     if request.method == 'GET':
         response = User.query.order_by(User.name)
         return {"users": [user.to_dict() for user in response]}
@@ -53,6 +54,7 @@ def index():
 
 @users.route('/<id>', methods=['GET', 'PUT', 'DELETE'])
 def user_info(id):
+    print("top of '/<id>' route")
     # print("id = ", id)
     # user = User.query.filter(User.id == int(id))[0]
     user = User.query.get(int(id))

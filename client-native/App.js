@@ -45,10 +45,10 @@ export default function App() {
         <StatusBar style="auto" />
       </SafeAreaView>
       <MyModal visible={showModal.login}>
-        <Login setShowOuterModal={setShowModal.login} />
+        <Login setShowOuterModal={setShowModal} />
       </MyModal>
       <MyModal visible={showModal.signup}>
-        <Signup setShowOuterModal={setShowModal.signup} />
+        <Signup setShowOuterModal={setShowModal} />
       </MyModal>
 
     </AuthContext.Provider>

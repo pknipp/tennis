@@ -18,14 +18,25 @@ const validationSchema = Yup.object().shape({
 });
 
 const Signup = ({ setShowOuterModal }) => {
-    const { fetchWithCSRF, setCurrentUser } = useContext(AuthContext);
+    const { fetchWithCSRF, currentUser, setCurrentUser } = useContext(AuthContext);
     const [signupErrors, setSignupErrors] = useState([]);
     const [showInnerModal, setShowInnerModal] = useState(false);
+    const keys = ["email", "name", "phone", "password", "password2"];
+    let myInitialValues;
+    if (currentUser) {
+        myInitialValues = Object.entries(currentUser || []).reduce((iv, [key, value]) => ({...iv, key: value}), {});
+        myInitialValues = {...myInitialValues, password: '', password2: ''};
+    } else {
+        myInitialValues = keys.reduce((iv, key) => ({...iv, key: ''}), {});
+    }
+    const [initialValues] = useState(myInitialValues)
 
-    const submitForm = async values => {
+    const createUser = async values => {
+        const body = keys.reduce((body, key) => ({...body, [key]: values[key]}), {});
+        console.log(body);
         const response = await fetchWithCSRF(`http://127.0.0.1:5000/api/users`, {
             method: 'POST', headers: { "Content-Type": "application/json" },
-            credentials: 'include', body: JSON.stringify({ email: values.email, name: values.name, phone: values.phone, password: values.password, password2: values.password2 })
+            credentials: 'include', body: JSON.stringify(body)
         });
         const data = await response.json();
         setSignupErrors(data.errors || []);
@@ -35,20 +46,43 @@ const Signup = ({ setShowOuterModal }) => {
         }
     }
 
+    const updateUser = async values => {
+        const body = Object.entries(values).reduce((body, [key, value]) => ({...body, key: value}), {});
+        const response = await fetchWithCSRF(`/api/users/${currentUser.id}`, {
+            method: 'PUT', headers: {"Content-Type": "application/json"}, credentials:'include',
+            body: JSON.stringify(values)
+        });
+        const data = await response.json();
+        setErrors(data.errors || []);
+        setMessages(data.messages || []);
+        if (response.ok) {
+            setCurrentUser(data.current_user);
+            setShowInnerModal(true);
+        }
+    }
+
+    const handleLogin = () => {
+        setShowOuterModal.signup(false);
+        setShowOuterModal.login(true);
+    }
+
     return (
+        // const initialValues = {email: '', name: '', phone: '', password: '', password2: ''};
         <>
-        <Text>Hello world.</Text>
         <SafeAreaView style={{flex: 1, justifyContent: "center"}}>
             <>
                 <Formik
-                  initialValues={{ email: '', name: '', phone: '', password: '', password2: '' }}
-                  onSubmit={values => submitForm(values)}
+                    initialValues={initialValues}
+                //   initialValues={{ email: , name: '', phone: '', password: '', password2: '' }}
+                  onSubmit={values => (currentUser ? updateUser(values) : createUser(values))}
                   validationSchema={validationSchema}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
                         <SafeAreaView style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+
                             <MyTextInput
                                 onChangeText={handleChange("email")}
+                                label="Email"
                                 autoCapitalize="none"
                                 value={values.email}
                                 onBlur={handleBlur("email")}
@@ -67,8 +101,8 @@ const Signup = ({ setShowOuterModal }) => {
                                 textContentType="name"
                                 placeholder="Nickname (unique to group)"
                             />
-                             <Text style={{color: 'red'}}>{errors.name}</Text>
-                             <MyTextInput
+                            <Text style={{color: 'red'}}>{errors.name}</Text>
+                            <MyTextInput
                                  onChangeText={handleChange("phone")}
                                  autoCapitalize="none"
                                  value={values.phone}
@@ -76,32 +110,33 @@ const Signup = ({ setShowOuterModal }) => {
                                  keyboardType="phone-pad"
                                  textContentType="telephoneNumber"
                                  placeholder="Phone (w/area code)"
-                             />
-                             <Text style={{color: 'red'}}>{errors.phone}</Text>
-                             <MyTextInput
-                                 onChangeText={handleChange("password")}
-                                 autoCapitalize="none"
-                                 value={values.password}
-                                 onBlur={handleBlur("password")}
-                                 keyboardType="visible-password"
-                                 textContentType="password"
-                                 placeholder="Password"
-                                 icon="lock"
-                             />
-                             <Text style={{color: 'red'}}>{errors.password}</Text>
-                             <MyTextInput
-                                 onChangeText={handleChange("password2")}
-                                 autoCapitalize="none"
-                                 value={values.password2}
-                                 onBlur={handleBlur("password")}
-                                 keyboardType="visible-password"
-                                 textContentType="password"
-                                 placeholder="Confirm password"
-                                 icon="lock"
-                             />
-                             <Text style={{color: 'red'}}>{errors.password2}</Text>
-                             <Button onPress={handleSubmit} title={"Create account"} />
-                             <Text style={{color: "red"}}>{signupErrors[0]}.</Text>
+                            />
+                            <Text style={{color: 'red'}}>{errors.phone}</Text>
+                            <MyTextInput
+                                onChangeText={handleChange("password")}
+                                autoCapitalize="none"
+                                value={values.password}
+                                onBlur={handleBlur("password")}
+                                keyboardType="visible-password"
+                                textContentType="password"
+                                placeholder="Password"
+                                icon="lock"
+                            />
+                            <Text style={{color: 'red'}}>{errors.password}</Text>
+                            <MyTextInput
+                                onChangeText={handleChange("password2")}
+                                autoCapitalize="none"
+                                value={values.password2}
+                                onBlur={handleBlur("password")}
+                                keyboardType="visible-password"
+                                textContentType="password"
+                                placeholder="Confirm password"
+                                icon="lock"
+                            />
+                            <Text style={{color: 'red'}}>{errors.password2}</Text>
+                            <Button onPress={handleSubmit} title={currentUser ? "Submit changes" : "Create account"} />
+                            {currentUser ? null : <Button onPress={handleLogin} title={"Switch to 'Login'"} />}
+                            <Text style={{color: "red"}}>{signupErrors[0]}.</Text>
                          </SafeAreaView>
                      )}
                  </Formik>
