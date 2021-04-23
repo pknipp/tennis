@@ -30,8 +30,6 @@ const Signup = () => {
     const [render, setRender] = useState(false);
 
     const createUser = async values => {
-        // const body = keys.reduce((body, key) => ({...body, [key]: values[key]}), {});
-        // console.log(body);
         const response = await fetchWithCSRF(`http://127.0.0.1:5000/api/users`, {
             method: 'POST', headers: { "Content-Type": "application/json" },
             credentials: 'include', body: JSON.stringify(values)
@@ -74,6 +72,7 @@ const Signup = () => {
         <SafeAreaView style={{flex: 1, justifyContent: "center"}}>
             <>
                 <Formik
+                    enableReinitialize
                     initialValues={{...initialValues, password: '', password2: ''}}
                 //   initialValues={{ email: , name: '', phone: '', password: '', password2: '' }}
                   onSubmit={values => (currentUser ? updateUser(values) : createUser(values))}

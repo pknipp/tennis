@@ -7,7 +7,7 @@ import AuthContext from '../auth';
 const CARTOON = `https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30643252021.png`
 
 
-const Members = ({ setShowOuterModal }) => {
+const Members = () => {
     const { fetchWithCSRF } = useContext(AuthContext);
     const [users, setUsers] = useState([]);
     const [, setErrors] = useState([]);

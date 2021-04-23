@@ -5,7 +5,7 @@ import { Text, View } from 'react-native';
 import AuthContext from '../auth';
 import Single from './Single';
 
-const SingleDate = ({ dateId, date, yesList, noList, reservation }) => {
+const SingleDate = ({ dateId, date, yesList, noList, reservation, expand }) => {
     // const [rerender, setRerender]=useState(false);
     // const [, setMessages]=useState([]);
     // const [, setErrors]   = useState([]);
@@ -26,7 +26,7 @@ const SingleDate = ({ dateId, date, yesList, noList, reservation }) => {
                 <span> on this date.</span>
             </>
         }</View> */}
-        <View className="lists">
+        {!expand ? null : <View className="lists">
             <>
             <View className="left-list">
                 <Text>People who want to play:</Text>
@@ -52,6 +52,7 @@ const SingleDate = ({ dateId, date, yesList, noList, reservation }) => {
             </View>
             </>
         </View>
+        }
         </>
     )
 }
