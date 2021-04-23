@@ -3,20 +3,16 @@ import { SafeAreaView, View, Text, TextInput, Button, Image, Pressable } from 'r
 import { MaterialCommunityIcons, Fontisto, FontAwesome } from '@expo/vector-icons';
 
 import MyModal from './MyModal';
-// import Success from './Success';
 import Dates from './Dates';
 import Members from './Members';
 // import Signup from './Signup';
 import AuthContext from '../auth';
 
-const modals = ["dates", "members", "accountDetails"];
+const modals = ["dates", "members"];
 
-const Home = ({ setShowOuterModal }) => {
-    const { fetchWithCSRF, currentUser, setCurrentUser, Announcements } = useContext(AuthContext);
-    const [showModal, setShowModal] = modals.reduce(([show, setShow], modal) => {
-        [show[modal], setShow[modal]] = useState(false);
-        return [show, setShow];
-    }, [{}, {}]);
+const Home = () => {
+    const { fetchWithCSRF, currentUser, setCurrentUser, Announcements, showModal, setShowModal } = useContext(AuthContext);
+    modals.forEach(key => ([showModal[key], setShowModal[key]] = useState(false)));
 
     const logout = async () => {
         // e.preventDefault();
@@ -25,7 +21,7 @@ const Home = ({ setShowOuterModal }) => {
         });
         if (response.ok) {
             setCurrentUser(null);
-            setShowOuterModal(false);
+            Object.values(setShowModal).forEach(setShowModal => setShowModal(false))
         }
     }
 
@@ -47,7 +43,9 @@ const Home = ({ setShowOuterModal }) => {
             </Pressable>
             {/* <Pressable onPressIn={() => setShowModal.accountDetails(true)}> */}
             <Pressable onPressIn={() => {
-                setShowOuterModal(false);
+                setShowModal.home(false);
+                setShowModal.login(false);
+                setShowModal.signup(true);
             }}>
                 <View style={styles.pressView} >
                     <MaterialCommunityIcons name={"account"} size={20} color={"#666"} style={{marginRight: 10}} />
@@ -62,14 +60,11 @@ const Home = ({ setShowOuterModal }) => {
             </Pressable>
         </View>
         <MyModal visible={showModal.dates}>
-                    <Dates setShowOuterModal={setShowModal.dates} />
+                    <Dates />
         </MyModal>
         <MyModal visible={showModal.members}>
-                    <Members setShowOuterModal={setShowModal.members} />
+                    <Members />
         </MyModal>
-        {/* <MyModal visible={showModal.accountDetails}>
-                    <Signup setShowOuterModal={setShowModal.accountDetails} />
-        </MyModal> */}
         </>
     )
 };

@@ -17,62 +17,64 @@ const validationSchema = Yup.object().shape({
     password2: Yup.string().required().min(4).label("Password confirmation")
 });
 
-const Signup = ({ setShowOuterModal }) => {
-    const { fetchWithCSRF, currentUser, setCurrentUser } = useContext(AuthContext);
+const keys = ["email", "name", "phone"];
+
+const Signup = () => {
+    const { fetchWithCSRF, currentUser, setCurrentUser, showModal, setShowModal } = useContext(AuthContext);
+    const myInitialValues = {};
+    keys.forEach(key => (myInitialValues[key] = (currentUser ? currentUser[key] : '')));
+
+    const [initialValues, setInitialValues] = useState({...myInitialValues, password: '', password2: ''});
+    [showModal.home, setShowModal.home] = useState(false);
     const [signupErrors, setSignupErrors] = useState([]);
-    const [showInnerModal, setShowInnerModal] = useState(false);
-    const keys = ["email", "name", "phone", "password", "password2"];
-    let myInitialValues;
-    if (currentUser) {
-        myInitialValues = Object.entries(currentUser || []).reduce((iv, [key, value]) => ({...iv, key: value}), {});
-        myInitialValues = {...myInitialValues, password: '', password2: ''};
-    } else {
-        myInitialValues = keys.reduce((iv, key) => ({...iv, key: ''}), {});
-    }
-    const [initialValues] = useState(myInitialValues)
+    const [render, setRender] = useState(false);
 
     const createUser = async values => {
-        const body = keys.reduce((body, key) => ({...body, [key]: values[key]}), {});
-        console.log(body);
+        // const body = keys.reduce((body, key) => ({...body, [key]: values[key]}), {});
+        // console.log(body);
         const response = await fetchWithCSRF(`http://127.0.0.1:5000/api/users`, {
             method: 'POST', headers: { "Content-Type": "application/json" },
-            credentials: 'include', body: JSON.stringify(body)
+            credentials: 'include', body: JSON.stringify(values)
         });
         const data = await response.json();
         setSignupErrors(data.errors || []);
         if (response.ok) {
             setCurrentUser(data.current_user);
-            setShowInnerModal(true);
+            setShowModal.home(true);
+            setRender(!render);
         }
     }
 
     const updateUser = async values => {
-        const body = Object.entries(values).reduce((body, [key, value]) => ({...body, key: value}), {});
-        const response = await fetchWithCSRF(`/api/users/${currentUser.id}`, {
+        const body = Object.entries(values).reduce((body, [key, value]) => ({...body, [key]: value}), {});
+        const response = await fetchWithCSRF(`http://127.0.0.1:5000/api/users/${currentUser.id}`, {
             method: 'PUT', headers: {"Content-Type": "application/json"}, credentials:'include',
             body: JSON.stringify(values)
         });
         const data = await response.json();
-        setErrors(data.errors || []);
-        setMessages(data.messages || []);
+        setSignupErrors(data.errors || []);
+        // setMessages(data.messages || []);
         if (response.ok) {
             setCurrentUser(data.current_user);
-            setShowInnerModal(true);
+            setShowModal.home(true);
+            setRender(!render);
         }
     }
 
     const handleLogin = () => {
-        setShowOuterModal.signup(false);
-        setShowOuterModal.login(true);
+        setShowModal.signup(false);
+        setShowModal.login(true);
+        setRender(!render);
     }
 
+    const cancel = () => setShowModal.home(true);
+
     return (
-        // const initialValues = {email: '', name: '', phone: '', password: '', password2: ''};
         <>
         <SafeAreaView style={{flex: 1, justifyContent: "center"}}>
             <>
                 <Formik
-                    initialValues={initialValues}
+                    initialValues={{...initialValues, password: '', password2: ''}}
                 //   initialValues={{ email: , name: '', phone: '', password: '', password2: '' }}
                   onSubmit={values => (currentUser ? updateUser(values) : createUser(values))}
                   validationSchema={validationSchema}
@@ -135,13 +137,16 @@ const Signup = ({ setShowOuterModal }) => {
                             />
                             <Text style={{color: 'red'}}>{errors.password2}</Text>
                             <Button onPress={handleSubmit} title={currentUser ? "Submit changes" : "Create account"} />
-                            {currentUser ? null : <Button onPress={handleLogin} title={"Switch to 'Login'"} />}
+                            {currentUser
+                                ? <Button onPress={cancel} title={"Cancel"} />
+                                : <Button onPress={handleLogin} title={"Switch to 'Login'"} />
+                            }
                             <Text style={{color: "red"}}>{signupErrors[0]}.</Text>
                          </SafeAreaView>
                      )}
                  </Formik>
-                 <MyModal visible={showInnerModal}>
-                     <Home setShowOuterModal={setShowInnerModal} />
+                 <MyModal visible={showModal.home}>
+                     <Home />
                  </MyModal>
              </>
          </SafeAreaView>

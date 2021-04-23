@@ -12,10 +12,8 @@ import Announcements from './components/Announcements';
 const modals = ["login", "signup"];
 
 export default function App() {
-  const [showModal, setShowModal] = modals.reduce(([show, setShow], modal) => {
-    [show[modal], setShow[modal]] = useState(false);
-    return [show, setShow];
-  }, [{}, {}]);
+  const [showModal, setShowModal] = [{}, {}];
+  modals.forEach(key => ([showModal[key], setShowModal[key]] = useState(false)));
   const [fetchWithCSRF] = useState(() => fetch);
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -23,7 +21,9 @@ export default function App() {
     fetchWithCSRF,
     currentUser,
     setCurrentUser,
-    Announcements
+    Announcements,
+    showModal,
+    setShowModal
   };
 
   return (
@@ -45,10 +45,10 @@ export default function App() {
         <StatusBar style="auto" />
       </SafeAreaView>
       <MyModal visible={showModal.login}>
-        <Login setShowOuterModal={setShowModal} />
+        <Login />
       </MyModal>
       <MyModal visible={showModal.signup}>
-        <Signup setShowOuterModal={setShowModal} />
+        <Signup />
       </MyModal>
 
     </AuthContext.Provider>

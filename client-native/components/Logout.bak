@@ -1,15 +1,18 @@
 import React, { useContext } from 'react';
 import AuthContext from '../auth'
 
-const Logout = props => {
+const Logout = () => {
     // const [errors, setErrors] = useState("");
-    const { fetchWithCSRF, setCurrentUser } = useContext(AuthContext);
+    const { fetchWithCSRF, setCurrentUser, setShowModal } = useContext(AuthContext);
     const submitForm = async e => {
         // e.preventDefault();
         const response = await fetchWithCSRF('http://127.0.0.1:5000/api/session', {
             method: 'DELETE', credentials: 'include'
         });
-        if (response.ok) setCurrentUser(null);
+        if (response.ok) {
+            setCurrentUser(null);
+            Object.values(setShowModal).forEach(setShowModal => setShowModal(false))
+        }
     }
 
     return (
@@ -32,9 +35,9 @@ const Logout = props => {
                 </SafeAreaView>
             )}
         </Formik>
-        <MyModal visible={showInnerModal}>
+        {/* <MyModal visible={showInnerModal}>
             <Home setShowOuterModal={setShowInnerModal} />
-        </MyModal>
+        </MyModal> */}
     </>
     </SafeAreaView>
         );

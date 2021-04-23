@@ -16,10 +16,10 @@ const validationSchema = Yup.object().shape({
     password: Yup.string().required().min(4).label("Password")
 });
 
-const Login = ({ setShowOuterModal }) => {
+const Login = () => {
     const [loginErrors, setLoginErrors] = useState([]);
-    const { fetchWithCSRF, currentUser, setCurrentUser, Announcements } = useContext(AuthContext);
-    const [showInnerModal, setShowInnerModal] = useState(false);
+    const { fetchWithCSRF, currentUser, setCurrentUser, Announcements, showModal, setShowModal } = useContext(AuthContext);
+    [showModal.home, setShowModal.home] = useState(false);
 
     const submitForm = async values => {
         try {
@@ -31,7 +31,7 @@ const Login = ({ setShowOuterModal }) => {
             setLoginErrors(data.errors || []);
             if (response.ok) {
                 setCurrentUser(data.current_user);
-                setShowInnerModal(true);
+                setShowModal.home(true);
             }
         } catch (err) {
             console.error(err);
@@ -39,8 +39,8 @@ const Login = ({ setShowOuterModal }) => {
     }
 
     const handleSignup = () => {
-        setShowOuterModal.login(false);
-        setShowOuterModal.signup(true);
+        setShowModal.login(false);
+        setShowModal.signup(true);
     }
 
     return (
@@ -82,8 +82,8 @@ const Login = ({ setShowOuterModal }) => {
                         </SafeAreaView>
                     )}
                 </Formik>
-                <MyModal visible={showInnerModal}>
-                    <Home setShowOuterModal={setShowInnerModal} />
+                <MyModal visible={showModal.home}>
+                    <Home />
                 </MyModal>
             </>
         </SafeAreaView>
