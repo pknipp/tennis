@@ -1,5 +1,5 @@
 Components to create for admin:
-approve user, create date, delete date, roster which includes "private" data
+approve user, create date, delete date, roster which includes "private" data.
 insertion of a special date (Mon or Fri for a 3-day weekend?)
 queue up large periods of ("visible" = False) dates in future, including 3-day weekends and omissions
 

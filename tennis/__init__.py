@@ -65,6 +65,10 @@ def restore():
     date0 = dates[len(dates) - 2]
     date1 = dates[len(dates) - 1]
     today = date.today()
+    # print("testing whether date1.date < today")
+    # print(date1.date)
+    # print(today)
+    # print(date1.date < today)
     if date1.date < today:
         now = datetime.now()
         db.session.add(Date(date=date0.date + timedelta(days=7), created_at=now, updated_at=now))
@@ -78,7 +82,7 @@ def restore():
         new_dates = [dates[len(dates) - 2], dates[len(dates) - 1]]
 
         users = User.query.all()
-        print(len(users))
+        # print(len(users))
         for i in range(len(users)):
             for new_date in new_dates:
                 if random() < prob_respond:
