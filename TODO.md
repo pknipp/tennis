@@ -3,6 +3,7 @@ approve user, create date, delete date, roster which includes "private" data.
 insertion of a special date (Mon or Fri for a 3-day weekend?)
 queue up large periods of ("visible" = False) dates in future, including 3-day weekends and omissions
 
+Use a Bootstrap tooltip to render the each player's photo, on the Single component.
 include "isPrivate" column in User model (and use this to hide phone numbers on roster?)
 use localstorage to store password?
 change photo_url to use user's id#?
