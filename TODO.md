@@ -3,7 +3,7 @@ approve user, create date, delete date, roster which includes "private" data.
 insertion of a special date (Mon or Fri for a 3-day weekend?)
 queue up large periods of ("visible" = False) dates in future, including 3-day weekends and omissions
 
-test the automation of the creation of the next week's dates (& reservations) when a weekend passes
+test the automation of the creation of the next week's dates (& reservations) when a weekend passes (use a while loop, in case many weekends have passed)
 
 include "isPrivate" column in User model (and use this to hide phone numbers on roster?)
 use localstorage to store password?
