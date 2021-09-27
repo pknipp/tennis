@@ -9,9 +9,9 @@ const Single = ({ player, reservation, singles, scheduled, bubble }) => {
             {(singles && scheduled ? "*" : "") + player.name}
             {currentUser.id !== player.id ? null :
                 <>
-                    <button onClick={() => reservation(false)}>undo</button>
+                    <button onClick={() => reservation(false)}>toggle preference</button>
                     {!scheduled ? null :
-                        <button onClick={() => reservation(true)}>toggle *</button>
+                        <button onClick={() => reservation(true)}>toggle singles*</button>
                     }
                 </>
             }

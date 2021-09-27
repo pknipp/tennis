@@ -62,14 +62,11 @@ def react_root(path):
 def restore():
     dates = Date.query.all()
     users = User.query.all()
-    date0 = dates[len(dates) - 2]
-    date1 = dates[len(dates) - 1]
     today = date.today()
-    # print("testing whether date1.date < today")
-    # print(date1.date)
-    # print(today)
-    # print(date1.date < today)
-    if date1.date < today:
+    # If no more dates are in the future, add additional weekends until they ARE.
+    while dates[len(dates) - 1].date < today:
+        date0 = dates[len(dates) - 2]
+        date1 = dates[len(dates) - 1]
         now = datetime.now()
         db.session.add(Date(date=date0.date + timedelta(days=7), created_at=now, updated_at=now))
         db.session.add(Date(date=date1.date + timedelta(days=7), created_at=now, updated_at=now))

@@ -50,10 +50,10 @@ const Dates = () => {
                 'Please go to "Account Details" and upload a headshot.'}
             </h3>
             <div>
-                If your name appears on the preference-list for any date below, you may toggle your preference for that date by clicking <button disabled>undo</button> next to your name.
+                If your name appears on the preference-list for any date below, you may toggle your preference for that date by clicking <button disabled>toggle preference</button> next to your name.
             </div>
             <div>
-                <sup>*</sup>This indicates people willing to play singles on  the particular date.  Click <button disabled>toggle *</button> below if you would like to change your preference for this.
+                <sup>*</sup>This indicates people willing to play singles on  the particular date.  Click <button disabled>toggle singles*</button> below if you would like to change your preference for this.
             </div>
             {!bubble ? null :
                 <div>
