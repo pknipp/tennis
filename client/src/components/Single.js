@@ -2,11 +2,19 @@ import React, { useContext } from 'react';
 import AuthContext from '../auth';
 
 const Single = ({ player, reservation, singles, scheduled, bubble }) => {
-    const { currentUser } = useContext(AuthContext)
+    const { currentUser } = useContext(AuthContext);
+    const CARTOON = `https://tennis-photos.s3.us-east-2.amazonaws.com/uploads/SatApr30643252021.png`
+    const image =
+        <img
+            className="small"
+            src={CARTOON} alt={`headshot for user`}
+        />
     return (
         <li>
             {bubble ? "#" : null}
-            {(singles && scheduled ? "*" : "") + player.name}
+            <span className="ttip" data-toggle="tooltip" title={image}>
+                {(singles && scheduled ? "*" : "") + player.name}
+            </span>
             {currentUser.id !== player.id ? null :
                 <>
                     <button onClick={() => reservation(false)}>toggle preference</button>

@@ -1,4 +1,9 @@
 .active {font-size: 1.5em; }
+.ttip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
 .middle {
     display: block;
     margin-left: auto;
