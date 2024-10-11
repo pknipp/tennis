@@ -3,19 +3,20 @@ approve user, create date, delete date, roster which includes "private" data.
 insertion of a special date (Mon or Fri for a 3-day weekend?)
 queue up large periods of ("visible" = False) dates in future, including 3-day weekends and omissions
 
-Use a Bootstrap tooltip to render the each player's photo, on the Single component.
+Use a Bootstrap tooltip to render each player's photo, on the Single component.
 include "isPrivate" column in User model (and use this to hide phone numbers on roster?)
 use localstorage to store password?
 change photo_url to use user's id#?
 User faker to seed phone numbers (and first names, if these can be generated uniquely?)
 allow the user to toggle the display of availabilities for past dates
 
+Remove "manager_id" column from Groups table, and instead add an "is_manager" column to Memberships table.  Thisll enable the possibility of groups having more than one manager (and for a group to have zero managers, I suppose).
+
 Stuff to do to allow a multiplicity of groups to use this site:
     Create a Groups table (which'll be analogous to netAssign's Courses table)
     Create a Memberships table which joins Groups with Users (like netAssign's Enrollments)
     columns of Groups table:
         name
-        manager_id (FK which refers to Users table)
         day(s) and time(s) when they regularly play
         address where they usually play
         policies

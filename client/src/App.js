@@ -49,6 +49,9 @@ const App = _ => {
                         <br/><br/>
                         creator:
                         <a href="https://pknipp.github.io/" target="_blank" rel="noopener noreferrer">Peter Knipp</a>
+                        <br/>
+                        repo:
+                        <a href="https://github.com/pknipp/tennis" target="_blank" rel="noopener noreferrer">github.com/pknipp/tennis</a>
                     </span>
                 </BrowserRouter>
             }
